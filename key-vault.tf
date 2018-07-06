@@ -1,6 +1,6 @@
 module "sscs-vault" {
   source = "git@github.com:contino/moj-module-key-vault?ref=master"
-  name = "sscs-${var.env}"
+  name = "sscs-sftp-${var.env}"
   product = "${var.product}"
   env = "${var.env}"
   tenant_id = "${var.tenant_id}"
