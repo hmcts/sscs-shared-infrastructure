@@ -13,9 +13,11 @@ module "sftp" {
   vm_image_id                  = "${var.vm_image_id}"
 
   sftp_client_id            = "${var.sftp_client_id}"
+  sftp_tenant_id            = "${var.sftp_tenant_id}"
   sftp_client_secret        = "${var.sftp_client_secret}"
   sftp_subscription_id      = "${var.sftp_subscription_id}"
   sftp_ssh_priv_key      = "${var.sftp_ssh_priv_key}"
+  sftp_ssh_authorized_key      = "${var.sftp_ssh_authorized_key}"
 
   diagnostics_sa_endpoint      = "${var.diagnostics_sa_endpoint}"
   subnet_name                  = "${azurerm_subnet.mgmt-jenkins-subnet.name}"
