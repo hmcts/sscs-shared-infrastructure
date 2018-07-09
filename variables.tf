@@ -15,10 +15,6 @@ variable "location" {
 //  description = "Location for Application Insights"
 //}
 
-variable "env" {
-  type = "string"
-}
-
 //variable "application_type" {
 //  type        = "string"
 //  default     = "Web"
