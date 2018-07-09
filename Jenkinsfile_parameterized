@@ -8,7 +8,7 @@ properties([
         string(name: 'PRODUCT_NAME', defaultValue: 'sscs', description: ''),
         string(name: 'ENVIRONMENT', defaultValue: 'sandbox', description: 'Suffix for resources created'),
         choice(name: 'SUBSCRIPTION', choices: 'nonprod\nprod\nsandbox', description: 'Azure subscriptions available to build in', defaultValue: 'sandbox'),
-        booleanParam(name: 'PLAN_ONLY', defaultValue: false, description: 'set to true for skipping terraform apply')
+        booleanParam(name: 'PLAN_ONLY', defaultValue: true, description: 'set to true for skipping terraform apply')
     ])
 ])
 
