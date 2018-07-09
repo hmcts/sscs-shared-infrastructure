@@ -1,12 +1,28 @@
 #!groovy
-//noinspection GroovyUnusedAssignment
-@Library("Infrastructure") _
+import groovy.json.JsonSlurper
 
-//noinspection GroovyAssignabilityCheck
+@Library('Infrastructure') _
+
 properties([
-		parameters([
-			choice(name: 'ENVIRONMENT', choices: 'saat\nsprod\nsandbox', description: 'Environment where code should be build and deployed')
-		])
+    parameters([
+        string(name: 'PRODUCT_NAME', defaultValue: 'rhubarb', description: ''),
+        string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Suffix for resources created'),
+        choice(name: 'SUBSCRIPTION', choices: 'nonprod\nprod\nsandbox', description: 'Azure subscriptions available to build in'),
+        booleanParam(name: 'PLAN_ONLY', defaultValue: false, description: 'set to true for skipping terraform apply')
+    ])
 ])
 
-sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
+
+productName = params.PRODUCT_NAME
+subscription = params.SUBSCRIPTION
+environment = params.ENVIRONMENT
+planOnly = params.PLAN_ONLY
+
+echo "Building '${productName}' in '${environment}'"
+
+node {
+  env.PATH = "$env.PATH:/usr/local/bin"
+  def az = { cmd -> return sh(script: "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$subscription az $cmd", returnStdout: true).trim() }
+
+  sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
+}
