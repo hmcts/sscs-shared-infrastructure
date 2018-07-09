@@ -6,7 +6,7 @@ module "sftp" {
   subnet_id                    = "${azurerm_subnet.mgmt-sftp-subnet.id}"
   resource_group_name          = "${azurerm_resource_group.mgmt.name}"
   virtual_network              = "${azurerm_subnet.mgmt-sftp-subnet.virtual_network_name}"
-  subnet_rg                    = "${azurerm_subnet.mgmt-jenkins-subnet.resource_group_name}"
+  subnet_rg                    = "${azurerm_subnet.mgmt-sftp-subnet.resource_group_name}"
   hashicorp_vault_token        = "${var.hashicorp_vault_token}"
 
   vm_image_uri                 = "${var.vm_image_uri}"
@@ -20,7 +20,7 @@ module "sftp" {
   sftp_ssh_authorized_key      = "${var.sftp_ssh_authorized_key}"
 
   diagnostics_sa_endpoint      = "${var.diagnostics_sa_endpoint}"
-  subnet_name                  = "${azurerm_subnet.mgmt-jenkins-subnet.name}"
+  subnet_name                  = "${azurerm_subnet.mgmt-sftp-subnet.name}"
   consulclustersjson           = "${var.consulclustersjson}"
   slack_token                  = "${var.slack_token}"
   pipelinemetrics_cosmosdb_key = "${var.pipelinemetrics_cosmosdb_key}"
