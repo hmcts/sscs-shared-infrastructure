@@ -16,3 +16,33 @@ resource "azurerm_key_vault_secret" "admin-password" {
   value = "test.admin.user.name"
   vault_uri = "${module.sscs-vault.key_vault_uri}"
 }
+
+resource "azurerm_key_vault_secret" "github-apikey" {
+  name = "github-apikey"
+  value = "TBC"
+  vault_uri = "${module.sscs-vault.key_vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "bootstrap-creds" {
+  name = "bootstrap-creds"
+  value = "TBC"
+  vault_uri = "${module.sscs-vault.key_vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "cfg-vmimg-store" {
+  name = "cfg-vmimg-store"
+  value = "TBC"
+  vault_uri = "${module.sscs-vault.key_vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "sftp-ssh-private-key" {
+  name = "sftp-ssh-private-key"
+  value = "${file("sscs-shared-infrastructure")}"
+  vault_uri = "${module.sscs-vault.key_vault_uri}"
+}
+
+resource "azurerm_key_vault_secret" "hashicorp-vault-token" {
+  name = "hashicorp-vault-token"
+  value = "TBC"
+  vault_uri = "${module.sscs-vault.key_vault_uri}"
+}
