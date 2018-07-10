@@ -1,3 +1,4 @@
 .idea
 sscs-shared-infrastructure*
-
+bootstrap-creds.json
+cfg-vmimg-store.json

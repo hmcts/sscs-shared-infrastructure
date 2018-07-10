@@ -25,13 +25,13 @@ resource "azurerm_key_vault_secret" "github-apikey" {
 
 resource "azurerm_key_vault_secret" "bootstrap-creds" {
   name = "bootstrap-creds"
-  value = "TBC"
+  value = "${file("bootstrap-creds.json")}"
   vault_uri = "${module.sscs-vault.key_vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "cfg-vmimg-store" {
   name = "cfg-vmimg-store"
-  value = "TBC"
+  value = "${file("cfg-vmimg-store.json")}"
   vault_uri = "${module.sscs-vault.key_vault_uri}"
 }
 
