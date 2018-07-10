@@ -19,7 +19,7 @@ resource "azurerm_key_vault_secret" "admin-password" {
 
 resource "azurerm_key_vault_secret" "github-apikey" {
   name = "github-apikey"
-  value = "TBC"
+  value = "${file("github-apikey")}"
   vault_uri = "${module.sscs-vault.key_vault_uri}"
 }
 
@@ -43,6 +43,6 @@ resource "azurerm_key_vault_secret" "sftp-ssh-private-key" {
 
 resource "azurerm_key_vault_secret" "hashicorp-vault-token" {
   name = "hashicorp-vault-token"
-  value = "TBC"
+  value = "${file("hashicorp-vault-token")}"
   vault_uri = "${module.sscs-vault.key_vault_uri}"
 }
