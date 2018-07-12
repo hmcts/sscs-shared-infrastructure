@@ -1,48 +1,48 @@
 
 resource "azurerm_key_vault_secret" "jumpbox-username" {
-  name = "jumpbox-username"
+  name = "sscs-sftp-${environment}-jumpbox-username"
   value = "test.bastion.user.name"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "admin-username" {
-  name = "admin-username"
+  name = "sscs-sftp-${environment}-admin-username"
   value = "test.admin.user.name"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "admin-password" {
-  name = "admin-password"
+  name = "sscs-sftp-${environment}-admin-password"
   value = "test.admin.user.name"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "github-apikey" {
-  name = "github-apikey"
+  name = "sscs-sftp-${environment}-github-apikey"
   value = "${file("github-apikey")}"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "bootstrap-creds" {
-  name = "bootstrap-creds"
+  name = "sscs-sftp-${environment}-bootstrap-creds"
   value = "${file("bootstrap-creds.json")}"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "cfg-vmimg-store" {
-  name = "cfg-vmimg-store"
+  name = "sscs-sftp-${environment}-cfg-vmimg-store"
   value = "${file("cfg-vmimg-store.json")}"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "sftp-ssh-private-key" {
-  name = "sftp-ssh-private-key"
+  name = "sscs-sftp-${environment}-sftp-ssh-private-key"
   value = "${file("sscs-shared-infrastructure")}"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "hashicorp-vault-token" {
-  name = "hashicorp-vault-token"
+  name = "sscs-sftp-${environment}-hashicorp-vault-token"
   value = "${file("hashicorp-vault-token")}"
   vault_uri = "${sftp_vault_url}"
 }
