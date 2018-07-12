@@ -2,7 +2,7 @@ module "sftp" {
   source                      = "git::git@github.com:hmcts/moj-module-sftp?ref=master"
   env                          = "${var.env}"
   admin_username               = "${var.admin_username}"
-  admin_password               = "${var.admin_password}"
+  admin_password               = "${random_string.admin_password.result}"
   subnet_id                    = "${azurerm_subnet.mgmt-sftp-subnet.id}"
   resource_group_name          = "${azurerm_resource_group.mgmt.name}"
   virtual_network              = "${azurerm_subnet.mgmt-sftp-subnet.virtual_network_name}"
