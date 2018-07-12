@@ -1,6 +1,5 @@
 variable "sftp_vault_url" {
   type = "string"
-  default = "https://infra-vault-${environment}.vault.azure.net/"
 }
 
 variable "product" {
