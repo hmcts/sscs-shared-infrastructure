@@ -1,19 +1,19 @@
 
 resource "azurerm_key_vault_secret" "jumpbox-username" {
   name = "sscs-sftp-${environment}-jumpbox-username"
-  value = "test.bastion.user.name"
+  value = "root"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "admin-username" {
   name = "sscs-sftp-${environment}-admin-username"
-  value = "test.admin.user.name"
+  value = "root"
   vault_uri = "${sftp_vault_url}"
 }
 
 resource "azurerm_key_vault_secret" "admin-password" {
   name = "sscs-sftp-${environment}-admin-password"
-  value = "test.admin.user.name"
+  value = "${random_string.admin-password.result}" 
   vault_uri = "${sftp_vault_url}"
 }
 
