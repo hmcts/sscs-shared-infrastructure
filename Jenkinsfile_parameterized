@@ -25,7 +25,7 @@ node {
   env.PATH = "$env.PATH:/usr/local/bin"
   def az = { cmd -> return sh(script: "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$subscription az $cmd", returnStdout: true).trim() }
 
-  subscription_id = "$(az account show --query [id] -o t"
+  subscription_id = "$(az account show --query [id] -o tsv)"
   env.TF_VARS_vault_uri = "https://infra-vault-${environment}.vault.azure.net/"
   env.TF_VARS_buildlog_sa_name = "mgmtbuildlogstore${environment}"
   env.TF_VARS_buildlog_sa_key = "\$(az storage account keys list --subscription ${subscription_id} --account-name ${env.TF_VARS_buildlog_sa_name} --resource-group mgmt-buildlog-store-${environment} --output json | jq -r '.[1].value')" 
