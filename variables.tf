@@ -39,6 +39,7 @@ variable "azurerm_location" {
 
 variable "admin_username" {
   type = "string"
+  default = "root"
 }
 
 variable "prefix_env" {
