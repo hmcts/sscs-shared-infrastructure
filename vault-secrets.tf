@@ -11,9 +11,9 @@ resource "azurerm_key_vault_secret" "admin-username" {
   vault_uri = "${sftp_vault_url}"
 }
 
-resource "azurerm_key_vault_secret" "admin-password" {
-  name = "sscs-sftp-${environment}-admin-password"
-  value = "${random_string.admin-password.result}" 
+resource "azurerm_key_vault_secret" "admin_password" {
+  name = "sscs-sftp-${environment}-admin_password"
+  value = "${random_string.admin_password.result}" 
   vault_uri = "${sftp_vault_url}"
 }
 
