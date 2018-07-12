@@ -18,11 +18,14 @@ subscription = params.SUBSCRIPTION
 environment = params.ENVIRONMENT
 planOnly = params.PLAN_ONLY
 
+
 echo "Building '${productName}' in '${environment}'"
 
 node {
   env.PATH = "$env.PATH:/usr/local/bin"
   def az = { cmd -> return sh(script: "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$subscription az $cmd", returnStdout: true).trim() }
+
+  env.TF_VARS_vault_uri = "https://infra-vault-${environment}.vault.azure.net/"
 
   sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
 }
