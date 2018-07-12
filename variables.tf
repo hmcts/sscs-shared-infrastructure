@@ -41,10 +41,6 @@ variable "admin_username" {
   type = "string"
 }
 
-variable "admin_password" {
-  type = "string"
-}
-
 variable "prefix_env" {
   type        = "string"
   default     = "mgmt"
