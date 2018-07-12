@@ -178,5 +178,8 @@ variable "pipelinemetrics_cosmosdb_key" {}
 
 variable "owaspdb_password" {}
 
-variable "buildlog_sa_name" {}
+variable "buildlog_sa_name" 
+   type = "string"
+   default = "mgmtbuildlogstore${environment}"
+}
 variable "buildlog_sa_key" {}
