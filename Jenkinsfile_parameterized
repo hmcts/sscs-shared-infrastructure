@@ -27,6 +27,6 @@ node {
 
   env.TF_VARS_vault_uri = "https://infra-vault-${environment}.vault.azure.net/"
   env.TF_VARS_buildlog_sa_name = "mgmtbuildlogstore${environment}"
-
+  env.TF_VARS_buildlog_sa_key = "$(az storage account keys list --account-name  ${env.TF_VARS_buildlog_sa_name}--resource-group mgmt-buildlog-store-${environment} --output json | jq -r '.[1].value')" 
   sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
 }
