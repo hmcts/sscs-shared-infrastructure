@@ -10,11 +10,14 @@
 #
 # It draws heavily on moj-infrastructure-bootstrap/bootstrap.sh
 
-  env.az_keyvault_name = "infra-vault-nonprod"
-  subscription_id = az "account show --query [id] -o tsv"
-  env.TF_VAR_vault_uri = "https://infra-vault-${environment}.vault.azure.net/"
-  env.TF_VAR_buildlog_sa_name = "mgmtbuildlogstore${environment}"
-  env.TF_VAR_buildlog_sa_key = az "storage account keys list --subscription ${subscription_id} --account-name ${env.TF_VAR_buildlog_sa_name} --resource-group mgmt-buildlog-store-${environment} --output tsv | awk 'NR==1{ print \$3  }'"
-  env.TF_VAR_consulclustersjson = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name cfg-jenkins-dnsforward --query value"
+az_keyVault_name = "infra-vault-nonprod"
+export subscription_id = `az account show --query [id] -o tsv`
+export TF_VAR_vault_uri = "https://infra-vault-${environment}.vault.azure.net/"
+export TF_VAR_buildlog_sa_name = "mgmtbuildlogstore${environment}"
+export TF_VAR_buildlog_sa_key = `az storage account keys list --subscription ${subscription_id} --account-name ${TF_VAR_buildlog_sa_name} --resource-group mgmt-buildlog-store-${environment} --output tsv | awk 'NR==1{ print \$3  }'`
+export TF_VAR_consulclustersjson = `az keyvault secret show --vault-name \"${az_keyVault_name}\" --name cfg-jenkins-dnsforward --query value`
+
+diagnosticstore = `az keyvault secret show --vault-name \"${az_keyVault_name}\" --name cfg-log-store --query value`
+
 
 
