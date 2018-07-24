@@ -40,6 +40,6 @@ for VARNAME in \
    TF_VAR_buildlog_sa_key \
    TF_VAR_consulclustersjson \
 ; do 
-   echo ${EXPORT_PREFIX}$VARNAME="${$VARNAME}"
+   echo ${EXPORT_PREFIX}${VARNAME}="${!VARNAME}"
 done
 
