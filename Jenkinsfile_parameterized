@@ -46,6 +46,7 @@ node {
       #!/bin/bash
       chmod +x ./derive-infra-config.sh
       ./derive-infra-config.sh > derived-config.groovy
+      cat derived-config.groovy
     '''
   }
 
