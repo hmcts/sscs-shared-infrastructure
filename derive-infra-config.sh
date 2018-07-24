@@ -10,6 +10,9 @@
 #
 # It draws heavily on moj-infrastructure-bootstrap/bootstrap.sh
 
+# Debug, output commands.
+set +x
+
 export AZURE_CONFIG_DIR="/opt/jenkins/.azure-$SUBSCRIPTION"
 
 az_keyVault_name="infra-vault-nonprod"
