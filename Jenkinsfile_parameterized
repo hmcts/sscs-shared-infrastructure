@@ -25,13 +25,26 @@ echo "Building '${productName}' in '${environment}'"
 node {
   env.PATH = "$env.PATH:/usr/local/bin"
 
-  // Use the parameters provided to the jenkins job to derive the range of
-  // settings we need like vault secrets, azure infrastructure object names
-  // etc.
-  sh '''
+  stage('Checkout') {
+    deleteDir()
+    checkout scm
+  }
+
+  stage('Validate presence of essential tools') {
+    sh '''
      jq --version
-     ./derive-infra-config.sh
-  '''
+     az --version
+    '''
+  }
+
+  stage('Derive essential variables from job parameters') {
+    // Use the parameters provided to the jenkins job to derive the range of
+    // settings we need like vault secrets, azure infrastructure object names
+    // etc.
+    sh '''
+       ./derive-infra-config.sh
+    '''
+  }
 
   sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
 }
