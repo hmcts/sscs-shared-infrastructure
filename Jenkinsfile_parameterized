@@ -38,7 +38,7 @@ node {
     '''
   }
 
-  stage('Derive config variables') {
+  stage('Save derived config variables') {
     // Use the parameters provided to the jenkins job to derive the range of
     // settings we need like vault secrets, azure infrastructure object names
     // etc.
@@ -47,6 +47,7 @@ node {
       chmod +x ./derive-infra-config.sh
       ./derive-infra-config.sh > derived-config.txt
     '''
+  }
 
   stage('Create shared infrastructure') {
     withEnv( readFile('derived-config.txt').split("\r?\n")) {
