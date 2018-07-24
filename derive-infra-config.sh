@@ -15,7 +15,7 @@ set -x
 
 export AZURE_CONFIG_DIR="/opt/jenkins/.azure-$SUBSCRIPTION"
 
-az_keyVault_name="infra-vault-nonprod"
+az_keyVault_name=infra-vault-nonprod
 export subscription_id=`az account show --query [id] -o tsv`
 export TF_VAR_vault_uri="https://infra-vault-${ENVIRONMENT}.vault.azure.net/"
 export TF_VAR_buildlog_sa_name="mgmtbuildlogstore${ENVIRONMENT}"
