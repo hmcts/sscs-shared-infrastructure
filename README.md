@@ -22,3 +22,10 @@ external supplier, but since the new platform does not readily support this
 we needed to port our config from the old platform, and spin it up on standard
 cloud instances in the appropriate security constructs.
 
+# License
+
+MIT
+
+# Author 
+
+Reform DevOps, HMCTS.
