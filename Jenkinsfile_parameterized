@@ -42,6 +42,7 @@ node {
     // settings we need like vault secrets, azure infrastructure object names
     // etc.
     sh '''
+       chmod +x ./derive-infra-config.sh
        ./derive-infra-config.sh
     '''
   }
