@@ -19,8 +19,9 @@ set -x
 
 AZURE_CONFIG_DIR="/opt/jenkins/.azure-$SUBSCRIPTION"
 
-az_keyVault_name=infra-vault-nonprod
-subscription_id=`az account show --query [id] -o tsv`
+export az_keyVault_name=infra-vault-nonprod
+export subscription_id=`az account show --query [id] -o tsv`
+
 echo TF_VAR_vault_uri="https://infra-vault-${ENVIRONMENT}.vault.azure.net/"
 echo TF_VAR_buildlog_sa_name="mgmtbuildlogstore${ENVIRONMENT}"
 echo TF_VAR_buildlog_sa_key=`az storage account keys list --subscription ${subscription_id} --account-name ${TF_VAR_buildlog_sa_name} --resource-group mgmt-buildlog-store-${ENVIRONMENT} --output tsv | awk 'NR==1{ print \$3  }'`
