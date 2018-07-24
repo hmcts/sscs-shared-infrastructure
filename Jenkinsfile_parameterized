@@ -38,22 +38,23 @@ node {
     '''
   }
 
-  stage('Derive variables from job parameters and apply infrastructure') {
+  stage('Derive config variables') {
     // Use the parameters provided to the jenkins job to derive the range of
     // settings we need like vault secrets, azure infrastructure object names
     // etc.
     sh '''
       #!/bin/bash
       chmod +x ./derive-infra-config.sh
-      ./derive-infra-config.sh > derived-config.groovy
+      ./derive-infra-config.sh > derived-config.txt
     '''
 
-   load "derived-config.groovy"
-
-    // Verify env vars from script are persistent.
-    sh '''
-      env | grep TF_var
-    '''
-    sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
+  stage('Create shared infrastructure') {
+    withEnv( readFile('derived-config.txt').split("\r?\n")) {
+      // Verify env vars from script are persistent.
+      sh '''
+        env | grep TF_var
+      '''
+      sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
+    }
   }
 }
