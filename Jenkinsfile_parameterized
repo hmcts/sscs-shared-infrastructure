@@ -48,6 +48,10 @@ node {
       ./derive-infra-config.sh
     '''
 
+    // Verify env vars from script are persistent.
+    sh '''
+      env
+    '''
     sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
   }
 }
