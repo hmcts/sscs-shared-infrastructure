@@ -52,7 +52,7 @@ node {
 
     // Verify env vars from script are persistent.
     sh '''
-      env
+      env | grep TF_var
     '''
     sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
   }
