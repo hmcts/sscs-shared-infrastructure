@@ -10,7 +10,7 @@
 #
 # It draws heavily on moj-infrastructure-bootstrap/bootstrap.sh
 
-alias az-env "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$SUBSCRIPTION az"
+alias az-env="env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$SUBSCRIPTION az"
 
 az_keyVault_name="infra-vault-nonprod"
 export subscription_id=`az-env account show --query [id] -o tsv`
