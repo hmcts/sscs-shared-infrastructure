@@ -50,12 +50,11 @@ node {
   }
 
   stage('Create shared infrastructure') {
-    withEnv( readFile('derived-config.txt').split("\r?\n")) {
-      // Verify env vars from script are persistent.
-      sh '''
-        env | grep TF_var
-      '''
-      sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
-    }
+    load 'derived-config.groovy'
+    // Verify env vars from script are persistent.
+    sh '''
+      env | grep TF_var
+    '''
+    sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
   }
 }
