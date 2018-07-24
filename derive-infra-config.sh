@@ -11,7 +11,7 @@
 # It draws heavily on moj-infrastructure-bootstrap/bootstrap.sh
 
 # Debug, output commands.
-set +x
+set -x
 
 export AZURE_CONFIG_DIR="/opt/jenkins/.azure-$SUBSCRIPTION"
 
