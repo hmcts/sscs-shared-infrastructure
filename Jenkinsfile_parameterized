@@ -45,8 +45,10 @@ node {
     sh '''
       #!/bin/bash
       chmod +x ./derive-infra-config.sh
-      ./derive-infra-config.sh
+      ./derive-infra-config.sh > derived-config.groovy
     '''
+
+   load "derived-config.groovy"
 
     // Verify env vars from script are persistent.
     sh '''
