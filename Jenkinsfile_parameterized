@@ -7,7 +7,7 @@ properties([
     parameters([
         string(name: 'PRODUCT_NAME', defaultValue: 'sscs', description: ''),
         string(name: 'ENVIRONMENT', defaultValue: 'sandbox', description: 'Suffix for resources created'),
-        choice(name: 'SUBSCRIPTION', choices: '\nsandbox\nnonprod\nprod', description: 'Azure subscriptions available to build in', defaultValue: 'sandbox'),
+        choice(name: 'SUBSCRIPTION', choices: 'sandbox\nnonprod\nprod', description: 'Azure subscriptions available to build in'),
         booleanParam(name: 'PLAN_ONLY', defaultValue: true, description: 'set to true for skipping terraform apply')
     ]),
    [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '10']]
