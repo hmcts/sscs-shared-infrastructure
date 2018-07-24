@@ -29,6 +29,7 @@ node {
   // settings we need like vault secrets, azure infrastructure object names
   // etc.
   sh '''
+     jq --version
      ./derive-infra-config.sh
   '''
 
