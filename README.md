@@ -14,3 +14,11 @@ configured for all available subscriptions on the Jenkins agent box. Config
 files for each environment should be in the place they are expected by the
 config derivation script.
 
+# Rationale
+
+One of our software projects required SFTP servers with very particular protocol
+version support, and on a fixed IP address for receiving updates from an
+external supplier, but since the new platform does not readily support this
+we needed to port our config from the old platform, and spin it up on standard
+cloud instances in the appropriate security constructs.
+
