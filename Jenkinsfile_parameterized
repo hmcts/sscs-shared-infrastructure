@@ -33,7 +33,7 @@ node {
   stage('Validate presence of essential tools') {
     sh '''
      jq --version
-     az --version
+     az --version | head -1
     '''
   }
 
