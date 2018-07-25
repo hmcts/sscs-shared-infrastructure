@@ -28,4 +28,5 @@
  // These are the actual config vars we give a crap about. I need to refer back to notes about how to do this properly...
  env.TF_VAR_sftp_agent_password = "test-password-for-now"
  env.TF_VAR_sftp_client_id = "test-id-for-now"
+ env.TF_VAR_sftp_client_secret = "test-secret-for-now"
 
