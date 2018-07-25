@@ -25,6 +25,7 @@
  sa_rg = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name cfg-state-store | jq .rg_name"
  env.TF_VAR_resource_group_name = "${sa_rg}-${environment}"
  env.TF_VAR_slack_token = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name slack-token"
+ env.TF_VAR_sonar_api_key = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name sonar-api-key"
 
  // These are the actual config vars we give a crap about. I need to refer back to notes about how to do this properly...
  env.TF_VAR_sftp_agent_password = "test-password-for-now"
