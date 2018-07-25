@@ -12,6 +12,7 @@
  dg_name = "${dg}-${environment}"
  env.TF_VAR_diagnostics_sa_endpoint = "https://${dg_name}.blob.core.windows.net"
 
- env.TF_VAR_github_apikey = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name hmcts-github-apikey"
+ env.TF_VAR_github_apikey = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name github-apikey"
  env.TF_VAR_github_enterprise_apikey = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name github-enterprise-apikey"
  env.TF_VAR_hashicorp_vault_token = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name hashicorp-vault-token"
+ env.TF_VAR_hmcts_github_apikey = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name hmcts-github-apikey"
