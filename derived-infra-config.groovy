@@ -1,5 +1,8 @@
 #!groovy
 
+# TODO: This needs checking over later to remove any superfluous variables and
+# make sure that they have also been removed from the SFTP terraform module.
+
  def az = { cmd -> return sh(script: "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$subscription az $cmd", returnStdout: true).trim() }
 
  env.az_keyVault_name = "infra-vault-nonprod"
