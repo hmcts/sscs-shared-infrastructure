@@ -33,4 +33,4 @@
  env.TF_VAR_sftp_ssh_priv_key = "test-private-key-for-now"
  env.TF_VAR_sftp_subscription_id = "${subscription_id}"
  env.TF_VAR_sftp_tenant_id = "${env.TF_VAR_tenant_id}"
-
+ env.TF_VAR_sftp_vault_uri = "${env.TF_VAR_vault_uri}"
