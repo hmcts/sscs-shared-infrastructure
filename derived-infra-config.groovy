@@ -29,4 +29,5 @@
  env.TF_VAR_sftp_agent_password = "test-password-for-now"
  env.TF_VAR_sftp_client_id = "test-id-for-now"
  env.TF_VAR_sftp_client_secret = "test-secret-for-now"
+ env.TF_VAR_sftp_ssh_authorized_key = "test-authorized-key-for-now"
 
