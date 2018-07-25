@@ -22,4 +22,4 @@
  env.TF_VAR_owaspdb_password = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name OWASPDb-Password"
  env.TF_VAR_pipelinemetrics_cosmosdb_key = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name pipelinemetrics-cosmosdb-key"
  sa_rg = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name cfg-state-store | jq .rg_name"
- env.TF_VAR_resource_group_name = "${sa_rg_name}-${environment}"
+ env.TF_VAR_resource_group_name = "${sa_rg}-${environment}"
