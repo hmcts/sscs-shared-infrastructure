@@ -38,20 +38,8 @@ node {
     '''
   }
 
-  stage('Save derived config variables') {
-    // Use the parameters provided to the jenkins job to derive the range of
-    // settings we need like vault secrets, azure infrastructure object names
-    // etc.
-    sh '''
-      #!/bin/bash
-      chmod +x ./derive-infra-config.sh
-      ./derive-infra-config.sh > derived-config.groovy
-      cat derived-config.groovy
-    '''
-  }
-
   stage('Create shared infrastructure') {
-    load 'derived-config.groovy'
+    load 'derived-infra-config.groovy'
     // Verify env vars from script are persistent.
     sh '''
       env | grep TF_var
