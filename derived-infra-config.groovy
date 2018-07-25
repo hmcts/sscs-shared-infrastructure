@@ -6,6 +6,7 @@
  def az = { cmd -> return sh(script: "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$subscription az $cmd", returnStdout: true).trim() }
 
  env.az_keyVault_name = "infra-vault-nonprod"
+ env.resourcegroup_name = "infra"
  subscription_id = az "account show --query [id] -o tsv"
  env.TF_VAR_vault_uri = "https://infra-vault-${environment}.vault.azure.net/"
  env.TF_VAR_buildlog_sa_name = "mgmtbuildlogstore${environment}"
