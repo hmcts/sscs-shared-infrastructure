@@ -41,7 +41,7 @@ node {
   stage('Create shared infrastructure') {
     load 'derived-infra-config.groovy'
     // Verify env vars from script are persistent.
-    env.getEnvironment().each { name, value -> println "Name: $name -> Value $value" }
+    env.each { name, value -> println "Name: $name -> Value $value" }
     sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
   }
 }
