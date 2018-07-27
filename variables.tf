@@ -154,7 +154,7 @@ variable "sftp_client_secret" {}
 variable "sftp_ssh_priv_key" {}
 variable "sftp_ssh_authorized_key" {}
 
-variable "sftp_agent_password" {}
+variable "sftp_server_password" {}
 
 variable "consulclustersjson" {}
 

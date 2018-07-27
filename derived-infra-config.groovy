@@ -28,7 +28,7 @@
  env.TF_VAR_sonar_api_key = az "keyvault secret show --vault-name \"${env.az_keyVault_name}\" --name sonar-api-key"
 
  // These are the actual config vars we give a crap about. I need to refer back to notes about how to do this properly...
- env.TF_VAR_sftp_agent_password = "test-password-for-now"
+ env.TF_VAR_sftp_server_password = "test-password-for-now"
  env.TF_VAR_sftp_client_id = "test-id-for-now"
  env.TF_VAR_sftp_client_secret = "test-secret-for-now"
  env.TF_VAR_sftp_ssh_authorized_key = "test-sftp-authorized-key-for-now"
