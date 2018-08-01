@@ -146,8 +146,6 @@ variable "sftp_server_password" {}
 
 variable "consulclustersjson" {}
 
-variable "tactical_dns_ip" {}
-
 variable "root_address_space" {}
 
 variable "microsoft_external_dns" {
