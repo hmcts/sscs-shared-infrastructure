@@ -6,7 +6,6 @@ module "sftp" {
   admin_password               = "${random_string.admin_password.result}"
   resource_group_name          = "${azurerm_resource_group.mgmt.name}"
   virtual_network              = "${azurerm_subnet.dmz-sftp-subnet.virtual_network_name}"
-  subnet_rg                    = "${azurerm_subnet.dmz-sftp-subnet.resource_group_name}"
   hashicorp_vault_token        = "${var.hashicorp_vault_token}"
 
   vm_image_uri                 = "${var.vm_image_uri}"

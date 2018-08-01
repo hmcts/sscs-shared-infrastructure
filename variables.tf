@@ -74,10 +74,6 @@ variable "virtual_network" {
   type    = "string"
 }
 
-variable "subnet_rg" {
-  type    = "string"
-}
-
 variable "vm_name" {
   default = "sftp"
   type    = "string"
