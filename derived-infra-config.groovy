@@ -40,3 +40,5 @@
  env.TF_VAR_sftp_subscription_id = "${subscription_id}"
  env.TF_VAR_sftp_tenant_id = "${env.TF_VAR_tenant_id}"
  env.TF_VAR_sftp_vault_url = "${env.TF_VAR_vault_uri}"
+ // Looks like the below is supopsed to come from jenkins-library, but isn't.
+ env.TF_VAR_common_tags = "sscs-sftp-poc-kev-green"
