@@ -182,3 +182,4 @@ variable "buildlog_sa_name" {
    type = "string"
 }
 variable "buildlog_sa_key" {}
+variable "common_tags" {}
