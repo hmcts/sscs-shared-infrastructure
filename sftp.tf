@@ -29,6 +29,7 @@ module "sftp" {
   buildlog_sa_name             = "${var.buildlog_sa_name}"
   sonar_api_key                = "${var.sonar_api_key}"
   buildlog_sa_key              = "${var.buildlog_sa_key}"
+  common_tags                  = "${var.common_tags}"
 
 }
 
