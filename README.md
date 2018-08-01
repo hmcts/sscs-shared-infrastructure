@@ -3,9 +3,13 @@
 This was initially created for ticket RDO-1567 which captures the issue that
 SSCS in CNP is still reliant on SFTP servers in Tactical, which needed to be
 
-It leverages local config files that are excluded from git commits in order to
-retain secrecy over credentials etc, these will need to be created locally 
-before use so that terraform doesn't choke.
+The pipeline uses an external groovy code file to derive required secrets etc
+from the provided run-time parameters of the job, this is only in a separate
+file because it makes the primary pipeline cleaner, there is no functional
+reason why it shouldn't be in there, except perhaps portability as below.
+
+It leverages a terraform module repo which in turn leverages an ansible role
+repo to create the instance.
 
 # Requirements.
 
