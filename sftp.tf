@@ -1,6 +1,7 @@
 module "sftp" {
   source                      = "git::git@github.com:hmcts/moj-module-sftp?ref=master"
   env                          = "${var.env}"
+  product                      = "${var.product}"
   admin_username               = "${var.admin_username}"
   admin_password               = "${random_string.admin_password.result}"
   subnet_id                    = "${azurerm_subnet.dmz-sftp-subnet.id}"
