@@ -20,7 +20,6 @@ module "sftp" {
   sftp_ssh_authorized_key      = "${var.sftp_ssh_authorized_key}"
 
   diagnostics_sa_endpoint      = "${var.diagnostics_sa_endpoint}"
-  subnet_name                  = "${azurerm_subnet.dmz-sftp-subnet.name}"
   consulclustersjson           = "${var.consulclustersjson}"
   slack_token                  = "${var.slack_token}"
   pipelinemetrics_cosmosdb_key = "${var.pipelinemetrics_cosmosdb_key}"

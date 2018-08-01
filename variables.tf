@@ -70,10 +70,6 @@ variable "resource_group_name" {
   type    = "string"
 }
 
-variable "subnet_name" {
-  type    = "string"
-}
-
 variable "virtual_network" {
   type    = "string"
 }
