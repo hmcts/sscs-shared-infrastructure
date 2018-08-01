@@ -70,10 +70,6 @@ variable "resource_group_name" {
   type    = "string"
 }
 
-variable "virtual_network" {
-  type    = "string"
-}
-
 variable "vm_name" {
   default = "sftp"
   type    = "string"
