@@ -1,0 +1,40 @@
+#!groovy
+import groovy.json.JsonSlurper
+
+@Library('Infrastructure') _
+
+properties([
+    parameters([
+        string(name: 'PRODUCT_NAME', defaultValue: 'sscs', description: ''),
+        string(name: 'ENVIRONMENT', defaultValue: 'sandbox', description: 'Suffix for resources created'),
+        choice(name: 'SUBSCRIPTION', choices: 'sandbox\nnonprod\nprod', description: 'Azure subscriptions available to build in')
+    ]),
+   [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '30']]
+])
+
+productName = params.PRODUCT_NAME
+subscription = params.SUBSCRIPTION
+environment = params.ENVIRONMENT
+
+echo "Building '${productName}' in '${environment}'"
+
+node {
+  env.PATH = "$env.PATH:/usr/local/bin"
+
+  stage('Checkout') {
+    deleteDir()
+    checkout scm
+  }
+
+  stage('Validate presence of essential tools') {
+    sh '''
+     #!/bin/bash
+     jq --version
+     az --version | head -1
+    '''
+  }
+
+  stage('Create shared infrastructure') {
+    sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, "${environment}")
+  }
+}

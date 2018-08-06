@@ -1,0 +1,6 @@
+sscs-shared-infrastructure*
+bootstrap-creds.json
+cfg-vmimg-store.json
+hashicorp-vault-token
+github-apikey
+.terraform
