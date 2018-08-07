@@ -3,20 +3,9 @@ variable "tenant_id" {
   description = "The Tenant ID of the Azure Active Directory"
 }
 
-variable "product" {
-  type        = "string"
-  description = "The name of your application"
-  default     = "sscs"
-}
-
 variable "jenkins_AAD_objectId" {
   type        = "string"
   description = "This is the ID of the Application you wish to give access to the Key Vault via the access policy"
-}
-
-variable "env" {
-  type        = "string"
-  description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
 module "sscs-vault" {

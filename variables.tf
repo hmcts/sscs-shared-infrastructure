@@ -1,10 +1,12 @@
 variable "product" {
-  type    = "string"
-  default = "sscs"
+  type        = "string"
+  default     = "sscs"
+  description = "The name of your application"
 }
 
 variable "env" {
-  type = "string"
+  type        = "string"
+  description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
 variable "location" {
