@@ -13,3 +13,11 @@ variable "location" {
   type    = "string"
   default = "UK South"
 }
+
+variable "team_contact" {
+  default = "#sscs"
+}
+
+variable "team_name" {
+  default = "sscs"
+}
