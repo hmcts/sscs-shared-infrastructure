@@ -15,7 +15,7 @@ module "sscs_app_service_plan" {
   asp_name            = "${local.asp_name_without_env}"
   asp_capacity        = "${local.asp_capacity}"
   asp_sku_size        = "${local.asp_sku_size}"
-  tag_list            = "${local.common_tags}"
+  tag_list            = "${local.tags}"
 }
 
 output "appServicePlan" {
