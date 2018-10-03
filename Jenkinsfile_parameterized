@@ -20,14 +20,6 @@ node {
     checkout scm
   }
 
-  stage('Check tools') {
-    sh '''
-     #!/bin/bash
-     jq --version
-     az --version | head -1
-    '''
-  }
-
   stage('Create shared infrastructure') {
     sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, 'sandbox')
   }
