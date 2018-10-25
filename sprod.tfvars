@@ -9,3 +9,6 @@ sftp_subnet_range = "10.100.63.0/24"
 
 // Packer image for sftp system image
 sftp_packer_image_name = "sscs-sftp-packer-image-1536935717"
+
+// vault
+infra_vault_resgroup = "cnp-core-infra"

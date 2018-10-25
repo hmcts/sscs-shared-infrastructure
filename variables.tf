@@ -34,10 +34,6 @@ variable "sftp_admin_username" {
   type = "string"
 }
 
-variable "sftp_admin_ssh_key_public" {
-  type = "string"
-}
-
 variable "sftp_existing_resgroup_name" {
   type = "string"
 }
@@ -46,6 +42,14 @@ variable "sftp_existing_vnet_name" {
   type = "string"
 }
 
+variable "subscription_name" {
+  type = "string"
+}
+
 variable "subscription_id" {
+  type = "string"
+}
+
+variable "infra_vault_resgroup" {
   type = "string"
 }

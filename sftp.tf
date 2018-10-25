@@ -4,6 +4,17 @@ locals {
   sftp_packer_image_id = "/subscriptions/${var.subscription_id}/resourceGroups/sscs-sftp-${var.env}/providers/Microsoft.Compute/images/${var.sftp_packer_image_name}"
 }
 
+// Get secrets from Azure Vault
+data "azurerm_key_vault" "infra_vault" {
+  name = "infra-vault-${var.subscription_name}"
+  resource_group_name = "${var.infra_vault_resgroup}"
+}
+
+data "azurerm_key_vault_secret" "sscs-sftp-admin-public-key" {
+  name = "sscs-sftp-admin-public-key-${var.env}"
+  vault_uri = "${data.azurerm_key_vault.infra_vault.vault_uri}"
+}
+
 // Create dedicated resource group for sftp stuff as it is quite a separate project
 resource "azurerm_resource_group" "sftp" {
   name     = "${local.sftp_resgroup_name}"
@@ -32,6 +43,6 @@ module "sftp01" {
   resource_group_name   = "${local.sftp_resgroup_name}"
   subnet_id             = "${azurerm_subnet.sftp.id}"
   admin_username        = "${var.sftp_admin_username}"
-  admin_ssh_key         = "${var.sftp_admin_ssh_key_public}"
+  admin_ssh_key         = "${data.azurerm_key_vault_secret.sscs-sftp-admin-public-key.value}"
   sftp_packer_image_id  = "${local.sftp_packer_image_id}"
 }

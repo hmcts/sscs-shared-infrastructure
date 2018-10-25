@@ -32,11 +32,10 @@ node {
   def az = { cmd -> return sh(script: "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$subscription az $cmd", returnStdout: true).trim() }
 
   stage('Variables') {
-    sftp_admin_ssh_key_public = az "keyvault secret show --vault-name '${vaultName}' --name ${ssh_key_public} --query value -o tsv"
     sftp_admin_ssh_key_private = az "keyvault secret show --vault-name '${vaultName}' --name ${ssh_key_private} --query value -o tsv"
     env.TF_VAR_environment = "${params.ENVIRONMENT}"
+    env.TF_VAR_subscription_name = "${subscription}"
     env.TF_VAR_sftp_admin_username = "${sftp_admin_username}"
-    env.TF_VAR_sftp_admin_ssh_key_public = "${sftp_admin_ssh_key_public}"
 
     println("DEBUG: ENVIRONMENT=${params.ENVIRONMENT} and SUBSCRIPTION=${subscription}")
     println("DEBUG: env.TF_VAR_environment=${env.TF_VAR_environment}")
