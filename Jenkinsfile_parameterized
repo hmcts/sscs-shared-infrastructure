@@ -5,36 +5,62 @@ import groovy.json.JsonSlurper
 
 properties([
     parameters([
-        string(name: 'PRODUCT_NAME', defaultValue: 'sscs', description: ''),
-        string(name: 'ENVIRONMENT', defaultValue: 'sandbox', description: 'Suffix for resources created'),
-        choice(name: 'SUBSCRIPTION', choices: 'sandbox\nnonprod\nprod', description: 'Azure subscriptions available to build in')
-    ]),
+			choice(name: 'ENVIRONMENT', choices: 'sprod', description: 'Environment where code should be build and deployed')
+		]),
    [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '30']]
 ])
 
-productName = params.PRODUCT_NAME
-subscription = params.SUBSCRIPTION
-environment = params.ENVIRONMENT
+echo "Building SSCS infrastructure in environment '${params.ENVIRONMENT}'"
 
-echo "Building '${productName}' in '${environment}'"
+// Derive subscription from environment
+switch (params.ENVIRONMENT) {
+    case "sandbox": subscription = "sandbox"; break;
+    case "sprod": subscription = "sandbox"; break;
+    case "aat": subscription = "nonprod"; break;
+    case "prod": subscription = "prod"; break;
+    default: error("Invalid environment: ${params.ENVIRONMENT}")
+}
+
+vaultName = "infra-vault-" + subscription
+ssh_key_public = "sscs-sftp-admin-public-key-" + environment
+ssh_key_private = "sscs-sftp-admin-private-key-" + environment
+sftp_admin_username = "dojenkins"
 
 node {
   env.PATH = "$env.PATH:/usr/local/bin"
+
+  def az = { cmd -> return sh(script: "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-$subscription az $cmd", returnStdout: true).trim() }
+
+  stage('Variables') {
+    sftp_admin_ssh_key_public = az "keyvault secret show --vault-name '${vaultName}' --name ${ssh_key_public} --query value -o tsv"
+    sftp_admin_ssh_key_private = az "keyvault secret show --vault-name '${vaultName}' --name ${ssh_key_private} --query value -o tsv"
+    env.TF_VAR_environment = "${params.ENVIRONMENT}"
+    env.TF_VAR_sftp_admin_username = "${sftp_admin_username}"
+    env.TF_VAR_sftp_admin_ssh_key_public = "${sftp_admin_ssh_key_public}"
+
+    println("DEBUG: ENVIRONMENT=${params.ENVIRONMENT} and SUBSCRIPTION=${subscription}")
+    println("DEBUG: env.TF_VAR_environment=${env.TF_VAR_environment}")
+  }
 
   stage('Checkout') {
     deleteDir()
     checkout scm
   }
 
-  stage('Validate presence of essential tools') {
+  stage('Tools') {
     sh '''
      #!/bin/bash
-     jq --version
      az --version | head -1
     '''
   }
 
-  stage('Create shared infrastructure') {
-    sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, "${environment}")
+  stage('Infrastructure') {
+    sharedInfrastructurePipeline('sscs', params.ENVIRONMENT, subscription)
+  }
+
+  stage('Ansible') {
+    ssh_key_private = sh(returnStdout: true, script: "#!/bin/sh +x\necho '${sftp_admin_ssh_key_private}' | base64 --decode").trim()
+    // TODO: Checkout cnp-sftp-config + ansible-management if required
+    // TODO: Run ansible using private ssh key to connect
   }
 }
