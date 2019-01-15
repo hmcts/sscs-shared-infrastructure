@@ -25,3 +25,17 @@ variable "subscription" {}
 variable "common_tags" {
   type = "map"
 }
+
+variable "dn_external_cert_name" {}
+
+variable "dn_external_hostname" {}
+
+variable "external_cert_vault_uri" {}
+
+variable "aos_external_cert_name" {}
+
+variable "aos_external_hostname" {}
+
+variable "ilbIp" {}
+
+variable "subscription" {}
