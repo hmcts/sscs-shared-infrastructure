@@ -10,3 +10,4 @@ github-apikey
 *.iws
 *.ipr
 *.class
+.DS_Store
