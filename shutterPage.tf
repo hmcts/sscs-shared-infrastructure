@@ -1,10 +1,5 @@
-variable "shutterPageDirectory" {
-    type    = "string"
-    default = "shutterPages"
-}
-
 module "SYAshutterPage" {
-    source                = "git@github.com:hmcts/moj-module-sya-shutterpage?ref=master"
+    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=master"
     location              = "${azurerm_resource_group.rg.location}"
     env                   = "${var.env}"
     resource_group_name   = "${azurerm_resource_group.rg.name}"
@@ -16,7 +11,7 @@ module "SYAshutterPage" {
 }
 
 module "TYAshutterPage" {
-    source                = "git@github.com:hmcts/moj-module-tya-shutterpage?ref=master"
+    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=master"
     location              = "${azurerm_resource_group.rg.location}"
     env                   = "${var.env}"
     resource_group_name   = "${azurerm_resource_group.rg.name}"
@@ -28,7 +23,7 @@ module "TYAshutterPage" {
 }
 
 module "CORshutterPage" {
-    source                = "git@github.com:hmcts/moj-module-cor-shutterpage?ref=master"
+    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=master"
     location              = "${azurerm_resource_group.rg.location}"
     env                   = "${var.env}"
     resource_group_name   = "${azurerm_resource_group.rg.name}"
