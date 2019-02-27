@@ -7,7 +7,7 @@ module "queue-namespace" {
   common_tags         = "${var.common_tags}"
 }
 
-module "sscs-evidenceshare-queue" {
+module "evidenceshare-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
   name                = "evidenceshare"
   namespace_name      = "${module.queue-namespace.name}"
@@ -19,7 +19,7 @@ module "sscs-evidenceshare-queue" {
   max_delivery_count                      = "288" // To retry processing the message for 24hours
 }
 
-module "sscs-notifications-queue" {
+module "notifications-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
   name                = "notifications"
   namespace_name      = "${module.queue-namespace.name}"
@@ -33,7 +33,7 @@ output "evidenceshare_queue_primary_listen_connection_string" {
 }
 
 output "evidenceshare_queue_primary_send_connection_string" {
-  value = "${module.envelopes-queue.primary_send_connection_string}"
+  value = "${module.evidenceshare-queue.primary_send_connection_string}"
 }
 
 output "notifications_queue_primary_listen_connection_string" {
