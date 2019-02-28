@@ -1,5 +1,5 @@
-module "SYAshutterPage" {
-    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=master"
+module "shutterPage" {
+    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=CNP-585"
     location              = "${azurerm_resource_group.rg.location}"
     env                   = "${var.env}"
     resource_group_name   = "${azurerm_resource_group.rg.name}"
@@ -10,8 +10,8 @@ module "SYAshutterPage" {
     shutterCustomDomain   = "${var.product}"
 }
 
-module "TYAshutterPage" {
-    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=master"
+module "shutterPage" {
+    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=CNP-585"
     location              = "${azurerm_resource_group.rg.location}"
     env                   = "${var.env}"
     resource_group_name   = "${azurerm_resource_group.rg.name}"
@@ -22,8 +22,8 @@ module "TYAshutterPage" {
     shutterCustomDomain   = "${var.product}"
 }
 
-module "CORshutterPage" {
-    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=master"
+module "shutterPage" {
+    source                = "git@github.com:hmcts/moj-module-shutterpage?ref=CNP-585"
     location              = "${azurerm_resource_group.rg.location}"
     env                   = "${var.env}"
     resource_group_name   = "${azurerm_resource_group.rg.name}"
