@@ -14,10 +14,6 @@ variable "location" {
   default = "UK South"
 }
 
-variable "common_tags" {
-  type = "map"
-}
-
 variable "shutterPageDirectory" {
     type    = "string"
     default = "shutterPages"
