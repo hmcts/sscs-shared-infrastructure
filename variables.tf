@@ -17,3 +17,13 @@ variable "location" {
 variable "common_tags" {
   type = "map"
 }
+
+variable "shutterPageDirectory" {
+    type    = "string"
+    default = "shutterPages"
+}
+
+// TAG SPECIFIC VARIABLES
+variable "common_tags" {
+  type = "map"
+}
