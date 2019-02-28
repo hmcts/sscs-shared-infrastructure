@@ -1,4 +1,4 @@
-module "shutterPage" {
+module "shutterPageSYA" {
     source                = "git@github.com:hmcts/moj-module-shutterpage?ref=CNP-585"
     location              = "${azurerm_resource_group.rg.location}"
     env                   = "${var.env}"
