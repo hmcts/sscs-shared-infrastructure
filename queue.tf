@@ -33,7 +33,7 @@ output "evidenceshare_queue_primary_listen_connection_string" {
 }
 
 output "evidenceshare_queue_primary_send_connection_string" {
-  value = "${module.envelopes-queue.primary_send_connection_string}"
+  value = "${module.evidenceshare-queue.primary_send_connection_string}"
 }
 
 output "notifications_queue_primary_listen_connection_string" {
