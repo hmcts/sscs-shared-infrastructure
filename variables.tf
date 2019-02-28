@@ -19,6 +19,8 @@ variable "shutterPageDirectory" {
     default = "shutterPages"
 }
 
+variable "subscription" {}
+
 // TAG SPECIFIC VARIABLES
 variable "common_tags" {
   type = "map"
