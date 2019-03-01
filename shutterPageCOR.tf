@@ -5,7 +5,7 @@ module "shutterPageCOR" {
     resource_group_name   = "${azurerm_resource_group.rg.name}"
     shutterPageDirectory  = "${var.shutterPageDirectory}/cor"
     tag_list              = "${var.common_tags}"
-    product               = "${var.product}"
+    product               = "${var.product}-cor-frontend"
     subscription          = "${var.subscription}"
     shutterCustomDomain   = "${var.product}-cor-frontend"
 }
