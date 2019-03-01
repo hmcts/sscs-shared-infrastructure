@@ -5,7 +5,7 @@ module "shutterPageSYA" {
     resource_group_name   = "${azurerm_resource_group.rg.name}"
     shutterPageDirectory  = "${var.shutterPageDirectory}/sya"
     tag_list              = "${var.common_tags}"
-    product               = "${var.product}"
+    product               = "${var.product}-tribunals-frontend"
     subscription          = "${var.subscription}"
     shutterCustomDomain   = "${var.product}-tribunals-frontend"
 }
