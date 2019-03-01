@@ -7,5 +7,5 @@ module "shutterPageSYA" {
     tag_list              = "${var.common_tags}"
     product               = "${var.product}"
     subscription          = "${var.subscription}"
-    shutterCustomDomain   = "${var.product}"
+    shutterCustomDomain   = "${var.product}-tribunals-frontend"
 }
