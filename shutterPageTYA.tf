@@ -7,5 +7,4 @@ module "shutterPageTYA" {
   tag_list             = "${var.common_tags}"
   product              = "${var.product}-tya-frontend"
   subscription         = "${var.subscription}"
-  shutterCustomDomain  = "${replace(var.product, "-tya-frontend", "")}"
 }
