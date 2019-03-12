@@ -20,11 +20,11 @@ module "evidenceshare-queue" {
 }
 
 resource "azurerm_servicebus_topic" "example" {
-  name                = "evidenceshare_topic"
-  namespace_name      = "${module.queue-namespace.name}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
-
-  enable_partitioning = true
+  name                  = "evidenceshare_topic"
+  namespace_name        = "${module.queue-namespace.name}"
+  resource_group_name   = "${azurerm_resource_group.rg.name}"
+  max_size_in_megabytes = "1024"
+  enable_partitioning   = false
 }
 
 output "evidenceshare_queue_primary_listen_connection_string" {
