@@ -1,4 +1,5 @@
-module "queue-namespace" {
+
+module "servicebus-namespace" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-namespace.git"
   name                = "${var.product}-servicebus-${var.env}"
   location            = "${var.location}"
@@ -7,30 +8,25 @@ module "queue-namespace" {
   common_tags         = "${var.common_tags}"
 }
 
-module "evidenceshare-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
-  name                = "evidenceshare"
-  namespace_name      = "${module.queue-namespace.name}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
-
-  requires_duplicate_detection            = "true"
-  duplicate_detection_history_time_window = "PT1H"
-  lock_duration                           = "PT5M"
-  max_delivery_count                      = "288" // To retry processing the message for 24hours
-}
-
-resource "azurerm_servicebus_topic" "example" {
+module "evidenceshare-topic" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic.git"
   name                  = "evidenceshare_topic"
-  namespace_name        = "${module.queue-namespace.name}"
+  namespace_name        = "${module.servicebus-namespace.name}"
   resource_group_name   = "${azurerm_resource_group.rg.name}"
-  max_size_in_megabytes = "1024"
-  enable_partitioning   = false
 }
 
-output "evidenceshare_queue_primary_listen_connection_string" {
-  value = "${module.evidenceshare-queue.primary_listen_connection_string}"
+output "evidenceshare_topic_primary_send_and_listen_connection_string" {
+  value = "${module.evidenceshare-queue.primary_send_and_listen_connection_string}"
 }
 
-output "evidenceshare_queue_primary_send_connection_string" {
-  value = "${module.evidenceshare-queue.primary_send_connection_string}"
+output "evidenceshare_topic_secondary_send_and_listen_connection_string" {
+  value = "${module.evidenceshare-queue.secondary_send_and_listen_connection_string}"
+}
+
+output "evidenceshare_topic_primary_send_and_listen_shared_access_key" {
+  value = "${module.evidenceshare-queue.primary_send_and_listen_shared_access_key}"
+}
+
+output "evidenceshare_topic_secondary_send_and_listen_shared_access_key" {
+  value = "${module.evidenceshare-queue.secondary_send_and_listen_shared_access_key}"
 }
