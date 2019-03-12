@@ -19,13 +19,12 @@ module "evidenceshare-queue" {
   max_delivery_count                      = "288" // To retry processing the message for 24hours
 }
 
-module "notifications-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue.git"
-  name                = "notifications"
+resource "azurerm_servicebus_topic" "example" {
+  name                = "evidenceshare_topic"
   namespace_name      = "${module.queue-namespace.name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-  lock_duration       = "PT5M"
-  max_delivery_count  = "288" // To retry processing the message for 24hours
+
+  enable_partitioning = true
 }
 
 output "evidenceshare_queue_primary_listen_connection_string" {
@@ -34,12 +33,4 @@ output "evidenceshare_queue_primary_listen_connection_string" {
 
 output "evidenceshare_queue_primary_send_connection_string" {
   value = "${module.evidenceshare-queue.primary_send_connection_string}"
-}
-
-output "notifications_queue_primary_listen_connection_string" {
-  value = "${module.notifications-queue.primary_listen_connection_string}"
-}
-
-output "notifications_queue_primary_send_connection_string" {
-  value = "${module.notifications-queue.primary_send_connection_string}"
 }
