@@ -1,6 +1,13 @@
+locals {
+  evidenceshare_topic_name        = "${var.product}-evidenceshare-topic-${var.env}"
+  evidenceshare_subscription_name = "${var.product}-evidenceshare-subscription-${var.env}"
+  servicebus_namespace_name       = "${var.product}-servicebus-${var.env}"
+  resource_group_name             = "${azurerm_resource_group.rg.name}"
+}
+
 module "servicebus-namespace" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-namespace.git"
-  name                = "${var.product}-servicebus-${var.env}"
+  name                = "${local.servicebus_namespace_name}"
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   env                 = "${var.env}"
@@ -9,7 +16,15 @@ module "servicebus-namespace" {
 
 module "evidenceshare-topic" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-topic.git"
-  name                  = "${var.product}-evidenceshare-topic-${var.env}"
-  namespace_name        = "${module.servicebus-namespace.name}"
-  resource_group_name   = "${azurerm_resource_group.rg.name}"
+  name                  = "${local.evidenceshare_topic_name}"
+  namespace_name        = "${local.servicebus_namespace_name}"
+  resource_group_name   = "${local.resource_group_name}"
+}
+
+module "evidenceshare-subscription" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription.git"
+  name                  = "${local.evidenceshare_subscription_name}"
+  namespace_name        = "${local.servicebus_namespace_name}"
+  resource_group_name   = "${local.resource_group_name}"
+  topic_name            = "${local.evidenceshare_topic_name}"
 }
