@@ -9,7 +9,7 @@ module "servicebus-namespace" {
 
 module "evidenceshare-topic" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-topic.git"
-  name                  = "evidenceshare"
+  name                  = "${var.product}-evidenceshare-topic-${var.env}"
   namespace_name        = "${module.servicebus-namespace.name}"
   resource_group_name   = "${azurerm_resource_group.rg.name}"
 }
