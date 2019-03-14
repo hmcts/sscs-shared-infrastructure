@@ -8,7 +8,7 @@ module "servicebus-namespace" {
 }
 
 module "evidenceshare-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic.git"
+  source                = "git@github.com:chris-moreton/terraform-module-servicebus-topic.git?ref=update-api-version"
   name                  = "evidenceshare"
   namespace_name        = "${module.servicebus-namespace.name}"
   resource_group_name   = "${azurerm_resource_group.rg.name}"
