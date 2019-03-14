@@ -26,5 +26,5 @@ module "evidenceshare-subscription" {
   name                  = "${local.evidenceshare_subscription_name}"
   namespace_name        = "${local.servicebus_namespace_name}"
   resource_group_name   = "${local.resource_group_name}"
-  topic-name            = "${local.evidenceshare_topic_name}"
+  topic_name            = "${local.evidenceshare_topic_name}"
 }
