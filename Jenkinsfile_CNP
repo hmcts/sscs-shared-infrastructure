@@ -9,5 +9,10 @@ Environment environment = new Environment(env)
 onMaster {
   sharedInfrastructurePipeline('sscs', environment.nonProdName, 'nonprod')
   sharedInfrastructurePipeline('sscs', environment.demoName, 'nonprod')
+  sharedInfrastructurePipeline('sscs', environment.hmctsDemoName, 'hmctsdemo')
   sharedInfrastructurePipeline('sscs', environment.prodName, 'prod')
+}
+
+onHMCTSDemo {
+  sharedInfrastructurePipeline('sscs', environment.hmctsDemoName, 'hmctsdemo')
 }
