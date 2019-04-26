@@ -18,6 +18,7 @@ module "sscs-vault" {
   resource_group_name     = "${azurerm_resource_group.rg.name}"
   product_group_object_id = "87099fce-881e-4654-88d2-7c36b634e622"
   common_tags             = "${local.tags}"
+  location                = "${var.location}"
 }
 
 output "vaultName" {
