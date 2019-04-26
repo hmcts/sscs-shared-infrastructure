@@ -16,5 +16,7 @@ onMaster {
 }
 
 onHMCTSDemo {
-  sharedInfrastructurePipeline(product, environment.hmctsDemoName, 'hmctsdemo')
+  withInfraPipeline(product) {
+
+  }
 }
