@@ -22,3 +22,9 @@ module "sscs-vault" {
 output "vaultName" {
   value = "${module.sscs-vault.key_vault_name}"
 }
+
+data "azurerm_key_vault" "sscs_key_vault" {
+  name                = "sscs-${var.env}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+}
+
