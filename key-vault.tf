@@ -1,13 +1,3 @@
-variable "tenant_id" {
-  type        = "string"
-  description = "The Tenant ID of the Azure Active Directory"
-}
-
-variable "jenkins_AAD_objectId" {
-  type        = "string"
-  description = "This is the ID of the Application you wish to give access to the Key Vault via the access policy"
-}
-
 module "sscs-vault" {
   source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                    = "sscs-${var.env}"
@@ -18,10 +8,7 @@ module "sscs-vault" {
   resource_group_name     = "${azurerm_resource_group.rg.name}"
   product_group_object_id = "87099fce-881e-4654-88d2-7c36b634e622"
   common_tags             = "${local.tags}"
-}
-
-output "vaultName" {
-  value = "${module.sscs-vault.key_vault_name}"
+  location                = "${var.location}"
 }
 
 data "azurerm_key_vault" "sscs_key_vault" {
@@ -29,3 +16,6 @@ data "azurerm_key_vault" "sscs_key_vault" {
   resource_group_name = "${azurerm_resource_group.rg.name}"
 }
 
+output "vaultName" {
+  value = "${module.sscs-vault.key_vault_name}"
+}
