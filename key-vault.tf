@@ -19,3 +19,7 @@ data "azurerm_key_vault" "sscs_key_vault" {
 output "vaultName" {
   value = "${module.sscs-vault.key_vault_name}"
 }
+
+output "vaultUri" {
+  value = "${module.sscs-vault.key_vault_uri}"
+}

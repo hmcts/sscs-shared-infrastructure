@@ -1,6 +1,6 @@
 data "azurerm_key_vault_secret" "sscs_failure_email_secret" {
   name      = "sscs-failure-email-to"
-  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
+  vault_uri = "${module.sscs-vault.key_vault_uri}"
 }
 
 module "sscs-fail-action-group" {
