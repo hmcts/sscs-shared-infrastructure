@@ -10,7 +10,7 @@ module "sscs-fail-alert" {
   time_window_in_minutes     = 5
   severity_level             = "3"
   action_group_name          = "${module.sscs-fail-action-group.action_group_name}"
-  custom_email_subject       = "Tribunals Case API Failure"
+  custom_email_subject       = "SSCS Service Exception"
   trigger_threshold_operator = "GreaterThan"
   trigger_threshold          = 0
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
