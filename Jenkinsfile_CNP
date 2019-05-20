@@ -22,7 +22,7 @@ onHMCTSDemo {
   }
 }
 
-onITHC {
+onIthc {
   withInfraPipeline(product) {
 
   }
