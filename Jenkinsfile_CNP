@@ -12,10 +12,17 @@ onMaster {
   sharedInfrastructurePipeline('sscs', environment.nonProdName, 'nonprod')
   sharedInfrastructurePipeline('sscs', environment.demoName, 'nonprod')
   sharedInfrastructurePipeline('sscs', environment.hmctsDemoName, 'hmctsdemo')
+  sharedInfrastructurePipeline('sscs', environment.ithcName, 'ithc')
   sharedInfrastructurePipeline('sscs', environment.prodName, 'prod')
 }
 
 onHMCTSDemo {
+  withInfraPipeline(product) {
+
+  }
+}
+
+onITHC {
   withInfraPipeline(product) {
 
   }
