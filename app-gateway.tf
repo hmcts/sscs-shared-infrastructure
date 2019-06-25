@@ -12,6 +12,8 @@ data "azurerm_subnet" "subnet_a" {
 locals {
   tribunals_frontend_suffix  = "${var.env != "prod" ? "-tribunals-frontend" : ""}"
   tribunals_frontend_internal_hostname  = "${var.product}-tribunals-frontend-${var.env}.service.core-compute-${var.env}.internal"
+
+  rfe_internal_hostname = "${var.product}-rfe-${var.env}.service.core-compute-${var.env}.internal"
 }
 
 module "appGw" {
@@ -69,7 +71,7 @@ module "appGw" {
 
       backendAddresses = [
         {
-          ipAddress = "${local.tribunals_frontend_internal_hostname}"
+          ipAddress = "${local.rfe_internal_hostname}"
         },
       ]
     },
@@ -129,6 +131,17 @@ module "appGw" {
       backendHttpSettings = "backend-80-palo"
       healthyStatusCodes  = "200"
       host                = "${local.tribunals_frontend_internal_hostname}"
+    },
+    {
+      name                = "http-probe-ilb"
+      protocol            = "Http"
+      path                = "/health"
+      interval            = 30
+      timeout             = 30
+      unhealthyThreshold  = 5
+      backendHttpSettings = "backend-80-ilb"
+      healthyStatusCodes  = "200"
+      host                = "${local.rfe_internal_hostname}"
     },
   ]
 }
