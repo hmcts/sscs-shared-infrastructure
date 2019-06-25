@@ -1,10 +1,5 @@
-data "azurerm_key_vault_secret" "aos_cert" {
-  name      = "${var.aos_external_cert_name}"
-  vault_uri = "${var.external_cert_vault_uri}"
-}
-
-data "azurerm_key_vault_secret" "dn_cert" {
-  name      = "${var.dn_external_cert_name}"
+data "azurerm_key_vault_secret" "tribunals_frontend_cert" {
+  name      = "${var.tribunals_frontend_external_cert_name}"
   vault_uri = "${var.external_cert_vault_uri}"
 }
 
@@ -15,11 +10,8 @@ data "azurerm_subnet" "subnet_a" {
 }
 
 locals {
-  dn_suffix  = "${var.env != "prod" ? "-dn" : ""}"
-  aos_suffix = "${var.env != "prod" ? "-aos" : ""}"
-
-  dn_internal_hostname  = "${var.product}-dn-${var.env}.service.core-compute-${var.env}.internal"
-  rfe_internal_hostname = "${var.product}-rfe-${var.env}.service.core-compute-${var.env}.internal"
+  tribunals_frontend_suffix  = "${var.env != "prod" ? "-tribunals-frontend" : ""}"
+  tribunals_frontend_internal_hostname  = "${var.product}-tribunals-frontend-${var.env}.service.core-compute-${var.env}.internal"
 }
 
 module "appGw" {
@@ -41,13 +33,8 @@ module "appGw" {
 
   sslCertificates = [
     {
-      name     = "${var.aos_external_cert_name}${local.aos_suffix}"
-      data     = "${data.azurerm_key_vault_secret.aos_cert.value}"
-      password = ""
-    },
-    {
-      name     = "${var.dn_external_cert_name}${local.dn_suffix}"
-      data     = "${data.azurerm_key_vault_secret.dn_cert.value}"
+      name     = "${var.tribunals_frontend_external_cert_name}${local.tribunals_frontend_suffix}"
+      data     = "${data.azurerm_key_vault_secret.tribunals_frontend_cert.value}"
       password = ""
     },
   ]
@@ -60,31 +47,15 @@ module "appGw" {
       FrontendPort            = "frontendPort80"
       Protocol                = "Http"
       SslCertificate          = ""
-      hostName                = "${var.dn_external_hostname}"
-    },
-    {
-      name                    = "${var.product}-http-rfe-redirect-listener"
-      FrontendIPConfiguration = "appGatewayFrontendIP"
-      FrontendPort            = "frontendPort80"
-      Protocol                = "Http"
-      SslCertificate          = ""
-      hostName                = "${var.aos_external_hostname}"
-    },
-    {
-      name                    = "${var.product}-https-listener-ilb"
-      FrontendIPConfiguration = "appGatewayFrontendIP"
-      FrontendPort            = "frontendPort443"
-      Protocol                = "Https"
-      SslCertificate          = "${var.aos_external_cert_name}${local.aos_suffix}"
-      hostName                = "${var.aos_external_hostname}"
+      hostName                = "${var.tribunals_frontend_external_hostname}"
     },
     {
       name                    = "${var.product}-https-listener-palo"
       FrontendIPConfiguration = "appGatewayFrontendIP"
       FrontendPort            = "frontendPort443"
       Protocol                = "Https"
-      SslCertificate          = "${var.dn_external_cert_name}${local.dn_suffix}"
-      hostName                = "${var.dn_external_hostname}"
+      SslCertificate          = "${var.tribunals_frontend_external_cert_name}${local.tribunals_frontend_suffix}"
+      hostName                = "${var.tribunals_frontend_external_hostname}"
     },
   ]
 
@@ -98,7 +69,7 @@ module "appGw" {
 
       backendAddresses = [
         {
-          ipAddress = "${local.rfe_internal_hostname}"
+          ipAddress = "${local.tribunals_frontend_internal_hostname}"
         },
       ]
     },
@@ -157,18 +128,7 @@ module "appGw" {
       unhealthyThreshold  = 5
       backendHttpSettings = "backend-80-palo"
       healthyStatusCodes  = "200"
-      host                = "${local.dn_internal_hostname}"
-    },
-    {
-      name                = "http-probe-ilb"
-      protocol            = "Http"
-      path                = "/health"
-      interval            = 30
-      timeout             = 30
-      unhealthyThreshold  = 5
-      backendHttpSettings = "backend-80-ilb"
-      healthyStatusCodes  = "200"
-      host                = "${local.rfe_internal_hostname}"
+      host                = "${local.tribunals_frontend_internal_hostname}"
     },
   ]
 }

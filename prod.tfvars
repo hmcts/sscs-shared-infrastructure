@@ -1,9 +1,4 @@
-aos_external_hostname = "www.set_me.service.gov.uk"
-
-aos_external_cert_name = "set_me-service-gov-uk"
-
-dn_external_hostname = "www.decree-nisi.set_me.service.gov.uk"
-
-dn_external_cert_name = "decree-nisi-set_me-service-gov-uk"
+tribunals_frontend_external_hostname = "www.appeal-benefit-decision.service.gov.uk"
 
 external_cert_vault_uri = "https://infra-vault-prod.vault.azure.net/"
+tribunals_frontend_external_cert_name = "core-compute-prod"
