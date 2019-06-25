@@ -8,6 +8,12 @@ data "azurerm_key_vault_secret" "dn_cert" {
   vault_uri = "${var.external_cert_vault_uri}"
 }
 
+data "azurerm_subnet" "subnet_a" {
+  name                 = "core-infra-subnet-0-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
+}
+
 locals {
   dn_suffix  = "${var.env != "prod" ? "-dn" : ""}"
   aos_suffix = "${var.env != "prod" ? "-aos" : ""}"
