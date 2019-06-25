@@ -44,14 +44,6 @@ module "appGw" {
   # Http Listeners
   httpListeners = [
     {
-      name                    = "${var.product}-https-listener-ilb"
-      FrontendIPConfiguration = "appGatewayFrontendIP"
-      FrontendPort            = "frontendPort443"
-      Protocol                = "Https"
-      SslCertificate          = "${var.tribunals_frontend_external_cert_name}${local.tribunals_frontend_suffix}"
-      hostName                = "${var.tribunals_frontend_external_hostname}"
-    },
-    {
       name                    = "${var.product}-https-listener-palo"
       FrontendIPConfiguration = "appGatewayFrontendIP"
       FrontendPort            = "frontendPort443"
@@ -65,15 +57,6 @@ module "appGw" {
     {
       name             = "${var.product}-${var.env}-backend-palo"
       backendAddresses = "${module.palo_alto.untrusted_ips_fqdn}"
-    },
-    {
-      name = "${var.product}-${var.env}-backend-ilb"
-
-      backendAddresses = [
-        {
-          ipAddress = "${local.rfe_internal_hostname}"
-        },
-      ]
     },
   ]
 
@@ -89,17 +72,6 @@ module "appGw" {
       PickHostNameFromBackendAddress = "False"
       HostName                       = ""
     },
-    {
-      name                           = "backend-80-ilb"
-      port                           = 80
-      Protocol                       = "Http"
-      AuthenticationCertificates     = ""
-      CookieBasedAffinity            = "Disabled"
-      probeEnabled                   = "True"
-      probe                          = "http-probe-ilb"
-      PickHostNameFromBackendAddress = "True"
-      HostName                       = ""
-    },
   ]
 
   # Request routing rules
@@ -110,13 +82,6 @@ module "appGw" {
       httpListener        = "${var.product}-https-listener-palo"
       backendAddressPool  = "${var.product}-${var.env}-backend-palo"
       backendHttpSettings = "backend-80-palo"
-    },
-    {
-      name                = "http-ilb"
-      ruleType            = "Basic"
-      httpListener        = "${var.product}-https-listener-ilb"
-      backendAddressPool  = "${var.product}-${var.env}-backend-ilb"
-      backendHttpSettings = "backend-80-ilb"
     },
   ]
 
@@ -131,17 +96,6 @@ module "appGw" {
       backendHttpSettings = "backend-80-palo"
       healthyStatusCodes  = "200"
       host                = "${local.tribunals_frontend_internal_hostname}"
-    },
-    {
-      name                = "http-probe-ilb"
-      protocol            = "Http"
-      path                = "/health"
-      interval            = 30
-      timeout             = 30
-      unhealthyThreshold  = 5
-      backendHttpSettings = "backend-80-ilb"
-      healthyStatusCodes  = "200"
-      host                = "${local.rfe_internal_hostname}"
     },
   ]
 }
