@@ -5,7 +5,7 @@ module "sscs-fail-alert" {
 
   alert_name                 = "sscs-fail-alert"
   alert_desc                 = "Triggers when an SSCS exception is received in a 5 minute poll."
-  app_insights_query         = "exceptions | where notempty(client_Browser)"
+  app_insights_query         = "exceptions"
   frequency_in_minutes       = 5
   time_window_in_minutes     = 5
   severity_level             = "3"
