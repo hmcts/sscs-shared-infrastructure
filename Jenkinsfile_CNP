@@ -28,5 +28,7 @@ onIthc {
 }
 
 onDemo {
-  sharedInfrastructurePipeline('sscs', environment.demoName, 'nonprod')
+  withInfraPipeline(product) {
+
+  }
 }
