@@ -9,7 +9,6 @@ Environment environment = new Environment(env)
 def product = "sscs"
 
 onMaster {
-  sharedInfrastructurePipeline('sscs', environment.demoName, 'nonprod')
   sharedInfrastructurePipeline('sscs', environment.nonProdName, 'nonprod')
 //  sharedInfrastructurePipeline('sscs', environment.hmctsDemoName, 'hmctsdemo')
   sharedInfrastructurePipeline('sscs', environment.prodName, 'prod')
@@ -19,4 +18,8 @@ onHMCTSDemo {
   withInfraPipeline(product) {
 
   }
+}
+
+onDemo {
+  sharedInfrastructurePipeline('sscs', environment.demoName, 'nonprod')
 }
