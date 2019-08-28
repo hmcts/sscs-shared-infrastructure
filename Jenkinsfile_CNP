@@ -2,24 +2,14 @@
 //noinspection GroovyUnusedAssignment
 @Library("Infrastructure") _
 
-import uk.gov.hmcts.contino.Environment
-
-Environment environment = new Environment(env)
-
-def product = "sscs"
-
-onMaster {
-  sharedInfrastructurePipeline('sscs', environment.nonProdName, 'nonprod')
-//  sharedInfrastructurePipeline('sscs', environment.hmctsDemoName, 'hmctsdemo')
-  sharedInfrastructurePipeline('sscs', environment.prodName, 'prod')
-}
-
-onHMCTSDemo {
-  withInfraPipeline(product) {
-
-  }
-}
-
-onDemo {
-  sharedInfrastructurePipeline('sscs', environment.demoName, 'nonprod')
+withInfraPipeline("sscs") {
+    onMaster {
+        enableSlackNotifications('#sscs-tech')
+    }
+    onDemo {
+        enableSlackNotifications('#sscs-tech')
+    }
+    onHMCTSDemo {
+        enableSlackNotifications('#sscs-tech')
+    }
 }
