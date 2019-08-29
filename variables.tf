@@ -28,6 +28,10 @@ variable "tribunals_frontend_external_cert_name" {}
 
 variable "tribunals_frontend_external_hostname" {}
 
+variable "mya_external_cert_name" {}
+
+variable "mya_external_hostname" {}
+
 variable "external_cert_vault_uri" {}
 
 variable "ilbIp" {}
