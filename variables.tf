@@ -35,3 +35,7 @@ variable "jenkins_AAD_objectId" {
   type        = "string"
   description = "This is the ID of the Application you wish to give access to the Key Vault via the access policy"
 }
+
+variable "managed_identity_object_id" {
+  default = ""
+}
