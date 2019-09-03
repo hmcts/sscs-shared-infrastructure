@@ -9,6 +9,9 @@ module "sscs-vault" {
   product_group_object_id = "87099fce-881e-4654-88d2-7c36b634e622"
   common_tags             = "${local.tags}"
   location                = "${var.location}"
+
+  managed_identity_object_id = "${var.managed_identity_object_id}"
+
 }
 
 data "azurerm_key_vault" "sscs_key_vault" {
