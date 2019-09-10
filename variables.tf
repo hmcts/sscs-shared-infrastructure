@@ -26,6 +26,14 @@ variable "common_tags" {
   type = "map"
 }
 
+variable "tribunals_frontend_external_cert_name" {}
+
+variable "tribunals_frontend_external_hostname" {}
+
+variable "external_cert_vault_uri" {}
+
+variable "ilbIp" {}
+
 variable "tenant_id" {
   type        = "string"
   description = "The Tenant ID of the Azure Active Directory"
