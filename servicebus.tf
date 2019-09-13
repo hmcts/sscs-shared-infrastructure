@@ -6,7 +6,7 @@ locals {
 }
 
 module "servicebus-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace.git?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
   name                = "${local.servicebus_namespace_name}"
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
@@ -15,14 +15,14 @@ module "servicebus-namespace" {
 }
 
 module "evidenceshare-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic.git?ref=master"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                  = "${local.evidenceshare_topic_name}"
   namespace_name        = "${local.servicebus_namespace_name}"
   resource_group_name   = "${local.resource_group_name}"
 }
 
 module "evidenceshare-subscription" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription.git?ref=master"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                  = "${local.evidenceshare_subscription_name}"
   namespace_name        = "${local.servicebus_namespace_name}"
   resource_group_name   = "${local.resource_group_name}"
