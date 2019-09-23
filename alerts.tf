@@ -16,7 +16,7 @@ module "sscs-fail-alert" {
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
 
-resource "azurerm_template_deployment" "alert_cluster_health_not_green" {
+resource "azurerm_template_deployment" "caseloader_finished_processing" {
   count               = "${var.subscription != "sandbox" ? 1 : 0}"
   name                = "caseloader_finished_processing_${var.env}"
   resource_group_name = "${data.azurerm_log_analytics_workspace.log_analytics.resource_group_name}"
