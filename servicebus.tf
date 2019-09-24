@@ -1,4 +1,5 @@
 locals {
+  notifications_subscription_name = "${var.product}-notifications-topic-${var.env}"
   evidenceshare_topic_name        = "${var.product}-evidenceshare-topic-${var.env}"
   evidenceshare_subscription_name = "${var.product}-evidenceshare-subscription-${var.env}"
   servicebus_namespace_name       = "${var.product}-servicebus-${var.env}"
@@ -24,6 +25,14 @@ module "evidenceshare-topic" {
 module "evidenceshare-subscription" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                  = "${local.evidenceshare_subscription_name}"
+  namespace_name        = "${local.servicebus_namespace_name}"
+  resource_group_name   = "${local.resource_group_name}"
+  topic_name            = "${local.evidenceshare_topic_name}"
+}
+
+module "notifications-subscription" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  name                  = "${local.notifications_subscription_name}"
   namespace_name        = "${local.servicebus_namespace_name}"
   resource_group_name   = "${local.resource_group_name}"
   topic_name            = "${local.evidenceshare_topic_name}"
