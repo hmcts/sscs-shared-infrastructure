@@ -15,38 +15,3 @@ module "sscs-fail-alert" {
   trigger_threshold          = 0
   resourcegroup_name         = "${azurerm_resource_group.rg.name}"
 }
-
-module "elastic_sscs_support_group" {
-  source = "git@github.com:hmcts/cnp-module-action-group"
-  location = "global"
-  env = "${var.env}"
-  resourcegroup_name = "${data.azurerm_log_analytics_workspace.log_analytics.resource_group_name}"
-  action_group_name = "ElasticSearch_SSCS_Ops_${var.env}"
-  short_name = "es-sscs-ops"
-  email_receiver_name = "SSCS Ops (SSCS) - ${var.env}"
-  email_receiver_address = "sscs-support@hmcts.net"
-}
-
-resource "azurerm_template_deployment" "caseloader_finished_processing" {
-  count               = "${var.subscription != "sandbox" ? 1 : 0}"
-  name                = "caseloader_finished_processing_${var.env}"
-  resource_group_name = "${data.azurerm_log_analytics_workspace.log_analytics.resource_group_name}"
-  deployment_mode     = "Incremental"
-
-  parameters = {
-    workspaceName = "${data.azurerm_log_analytics_workspace.log_analytics.name}"
-    ActionGroupName = "${module.elastic_sscs_support_group.action_group_name}"
-    DisplayNameOfSearch = "Caseloader has finished processing on ${var.env}"
-    UniqueNameOfSearch = "Caseloader-finished-processing-${var.env}"
-    Description = "Triggers after “XML summary” is seen in the logs, which indicates caseloader has finished processing on ${var.env}"
-    SearchQuery = "traces | where (message has \"XML summary\") | where cloud_RoleName == \"CaseLoader Insights WebApp\" | sort by timestamp desc"
-    Severity = "informational"
-    TimeWindow = "10"
-    AlertFrequency = "1"
-    AggregateValueOperator = "gt"
-    AggregateValue = "0"
-    TriggerAlertCondition = "Total"
-    TriggerAlertOperator = "gt"
-    TriggerAlertValue = "0"
-  }
-}

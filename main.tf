@@ -7,8 +7,3 @@ locals {
     map("Team Contact", "#sscs")
     )}"
 }
-
-data "azurerm_log_analytics_workspace" "log_analytics" {
-  name                = "hmcts-${var.subscription}"
-  resource_group_name = "oms-automation"
-}
