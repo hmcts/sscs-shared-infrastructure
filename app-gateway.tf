@@ -52,7 +52,7 @@ module "appGw" {
       hostName                = "${var.tribunals_frontend_external_hostname}"
     },
     {
-      name                    = "${var.product}-http-listener-palo"
+      name                    = "${var.product}-http-cor-listener-palo"
       FrontendIPConfiguration = "appGatewayFrontendIP"
       FrontendPort            = "frontendPort80"
       Protocol                = "Http"
@@ -60,7 +60,7 @@ module "appGw" {
       hostName                = "${var.cor_frontend_external_hostname}"
     },
     {
-      name                    = "${var.product}-https-listener-palo"
+      name                    = "${var.product}-https-cor-listener-palo"
       FrontendIPConfiguration = "appGatewayFrontendIP"
       FrontendPort            = "frontendPort443"
       Protocol                = "Https"
