@@ -106,6 +106,13 @@ module "appGw" {
       backendAddressPool  = "${var.product}-${var.env}-backend-palo"
       backendHttpSettings = "backend-80-palo"
     },
+    {
+      name                = "https-cor"
+      ruleType            = "Basic"
+      httpListener        = "${var.product}-https-cor-listener-palo"
+      backendAddressPool  = "${var.product}-${var.env}-backend-palo"
+      backendHttpSettings = "backend-80-palo"
+    },
   ]
 
   probes = [
