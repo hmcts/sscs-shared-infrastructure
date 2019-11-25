@@ -88,6 +88,28 @@ module "appGw" {
       PickHostNameFromBackendAddress = "False"
       HostName                       = ""
     },
+    {
+      name                           = "backend-80-cor"
+      port                           = 80
+      Protocol                       = "Http"
+      AuthenticationCertificates     = ""
+      CookieBasedAffinity            = "Disabled"
+      probeEnabled                   = "True"
+      probe                          = "http-probe-palo"
+      PickHostNameFromBackendAddress = "False"
+      HostName                       = ""
+    },
+    {
+      name                           = "backend-443-cor"
+      port                           = 443
+      Protocol                       = "Https"
+      AuthenticationCertificates     = ""
+      CookieBasedAffinity            = "Disabled"
+      probeEnabled                   = "True"
+      probe                          = "http-probe-palo"
+      PickHostNameFromBackendAddress = "False"
+      HostName                       = ""
+    },
   ]
 
   # Request routing rules
@@ -104,14 +126,14 @@ module "appGw" {
       ruleType            = "Basic"
       httpListener        = "${var.product}-http-cor-listener-palo"
       backendAddressPool  = "${var.product}-${var.env}-backend-palo"
-      backendHttpSettings = "backend-80-palo"
+      backendHttpSettings = "backend-80-cor"
     },
     {
       name                = "https-cor"
       ruleType            = "Basic"
       httpListener        = "${var.product}-https-cor-listener-palo"
       backendAddressPool  = "${var.product}-${var.env}-backend-palo"
-      backendHttpSettings = "backend-80-palo"
+      backendHttpSettings = "backend-443-cor"
     },
   ]
 
