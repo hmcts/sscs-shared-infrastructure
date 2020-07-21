@@ -8,7 +8,7 @@ locals {
     var.common_tags,
     map(
         "Team Contact", "#sscs",
-        "Team Name", "SSCS"
+        "Team Name", "sscs"
         )
     )}"
 }
