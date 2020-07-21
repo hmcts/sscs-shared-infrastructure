@@ -10,7 +10,7 @@ module "sscs-vault" {
   common_tags             = "${local.tags}"
   location                = "${var.location}"
 
-  managed_identity_object_id = ["${var.managed_identity_object_id}"]
+  managed_identity_object_ids = ["${var.managed_identity_object_id}"]
   create_managed_identity    = true
 }
 
