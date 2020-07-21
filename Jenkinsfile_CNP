@@ -9,7 +9,4 @@ withInfraPipeline("sscs") {
     onDemo {
         enableSlackNotifications('#sscs-tech')
     }
-    onHMCTSDemo {
-        enableSlackNotifications('#sscs-tech')
-    }
 }
