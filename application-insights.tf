@@ -4,7 +4,7 @@ variable "appinsights_location" {
 }
 
 variable "appinsights_application_type" {
-  default     = "Web"
+  default     = "web"
   description = "Type of Application Insights (Web/Other)"
 }
 resource "azurerm_application_insights" "appinsights" {
