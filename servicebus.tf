@@ -15,3 +15,26 @@ module "servicebus-namespace" {
   common_tags         = local.tags
   sku                 = "Premium"
 }
+
+module "evidenceshare-topic" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
+  name                  = local.evidenceshare_topic_name
+  namespace_name        = local.servicebus_namespace_name
+  resource_group_name   = local.resource_group_name
+}
+
+module "evidenceshare-subscription" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  name                  = local.evidenceshare_subscription_name
+  namespace_name        = local.servicebus_namespace_name
+  resource_group_name   = local.resource_group_name
+  topic_name            = local.evidenceshare_topic_name
+}
+
+module "notifications-subscription" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  name                  = local.notifications_subscription_name
+  namespace_name        = local.servicebus_namespace_name
+  resource_group_name   = local.resource_group_name
+  topic_name            = local.evidenceshare_topic_name
+}
