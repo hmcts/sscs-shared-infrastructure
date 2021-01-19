@@ -27,9 +27,9 @@ module "sscs-sya-submit-fail-alert" {
   frequency_in_minutes       = 5
   time_window_in_minutes     = 15
   severity_level             = "2"
-  action_group_name          = module.sscs-fail-action-group.action_group_name
-  custom_email_subject       = "SSCS SYA Submission Failing"
+  action_group_name          = module.sscs-fail-action-group-slack.action_group_name
+  custom_email_subject       = "Multiple SSCS SYA Submission Failing"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 0
+  trigger_threshold          = 1
   resourcegroup_name         = azurerm_resource_group.rg.name
 }
