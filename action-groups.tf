@@ -22,7 +22,7 @@ module "sscs-fail-action-group-slack" {
 
   resourcegroup_name     = azurerm_resource_group.rg.name
   action_group_name      = "SSCS Fail Slack Alert - ${var.env}"
-  short_name             = "SSCSF_slack_alert"
+  short_name             = "SSCSF_slack"
   email_receiver_name    = "SSCS Alerts"
   email_receiver_address = "sscs-prod-monitoring-aaaac7vjnaaknbv4uixozinjim@hmcts-reform.slack.com"
 }
