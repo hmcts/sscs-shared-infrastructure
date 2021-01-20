@@ -24,7 +24,7 @@ module "sscs-sya-submit-fail-alert" {
   alert_name                 = "sscs-sya-submit-fail"
   alert_desc                 = "Triggers when SYA has multiple Appeal submission fails."
   app_insights_query         = "customEvents | where name contains \"SYA-SendToApi-Failed\" | sort by timestamp desc"
-  frequency_in_minutes       = 5
+  frequency_in_minutes       = 15
   time_window_in_minutes     = 15
   severity_level             = "2"
   action_group_name          = module.sscs-fail-action-group-slack.action_group_name
