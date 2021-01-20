@@ -5,7 +5,7 @@ module "sscs-fail-alert" {
 
   alert_name                 = "sscs-fail-alert"
   alert_desc                 = "Triggers when an SSCS exception is received in a 5 minute poll."
-  app_insights_query         = "exceptions"
+  app_insights_query         = "exceptions | where appName == \"sscs-prod\" | sort by timestamp desc"
   frequency_in_minutes       = 5
   time_window_in_minutes     = 5
   severity_level             = "3"
@@ -23,7 +23,7 @@ module "sscs-sya-submit-fail-alert" {
 
   alert_name                 = "sscs-sya-submit-fail"
   alert_desc                 = "Triggers when SYA has multiple Appeal submission fails."
-  app_insights_query         = "customEvents | where name contains \"SYA-SendToApi-Failed\" | sort by timestamp desc"
+  app_insights_query         = "customEvents | where name contains \"SYA-SendToApi-Failed\" | where appName == \"sscs-prod\" | sort by timestamp desc"
   frequency_in_minutes       = 15
   time_window_in_minutes     = 15
   severity_level             = "2"
