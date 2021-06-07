@@ -7,13 +7,14 @@ locals {
 }
 
 module "servicebus-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=specify_capacity_default_is_zero"
   name                = local.servicebus_namespace_name
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   env                 = var.env
   common_tags         = local.tags
   sku                 = "Premium"
+  capacity            = 1
 }
 
 module "evidenceshare-topic" {
