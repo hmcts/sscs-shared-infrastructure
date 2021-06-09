@@ -7,7 +7,7 @@ locals {
 }
 
 module "servicebus-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=specify_capacity_default_is_zero"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
   name                = local.servicebus_namespace_name
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
