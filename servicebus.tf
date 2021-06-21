@@ -14,7 +14,7 @@ module "servicebus-namespace" {
   env                 = var.env
   common_tags         = local.tags
   sku                 = "Premium"
-  capacity            = 1
+  capacity            = 2
 }
 
 module "evidenceshare-topic" {
