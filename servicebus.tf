@@ -14,7 +14,7 @@ module "servicebus-namespace" {
   env                 = var.env
   common_tags         = local.tags
   sku                 = "Premium"
-  zone_redundant      = var.zoneRedundant
+  zone_redundant      = true
   capacity            = 1
 }
 

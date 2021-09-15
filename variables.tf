@@ -15,12 +15,6 @@ variable "shutterPageDirectory" {
     default = "shutterPages"
 }
 
-variable "zoneRedundant" {
-  type        = bool
-  default     = true
-  description = "Whether or not this resource is zone redundant (true or false)"
-}
-
 variable "subscription" {}
 
 // TAG SPECIFIC VARIABLES
