@@ -3,9 +3,9 @@
 @Library("Infrastructure") _
 
 withInfraPipeline("sscs") {
-//    onMaster {
-//        enableSlackNotifications('#sscs-tech')
-//    }
+    onMaster {
+        enableSlackNotifications('#sscs-tech')
+    }
 //    onDemo {
 //        enableSlackNotifications('#sscs-tech')
 //    }
