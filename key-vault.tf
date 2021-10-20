@@ -1,5 +1,5 @@
 module "sscs-vault" {
-  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=azurermv2"
+  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                    = "sscs-${var.env}"
   product                 = var.product
   env                     = var.env
@@ -11,11 +11,6 @@ module "sscs-vault" {
   location                = var.location
 
   create_managed_identity    = true
-}
-
-data "azurerm_key_vault" "sscs_key_vault" {
-  name                = "sscs-${var.env}"
-  resource_group_name = azurerm_resource_group.rg.name
 }
 
 output "vaultName" {

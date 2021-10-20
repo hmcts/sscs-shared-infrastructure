@@ -14,13 +14,17 @@ module "servicebus-namespace" {
   env                 = var.env
   common_tags         = local.tags
   sku                 = "Premium"
+  zoneRedundant       = true
+  capacity            = 1
 }
 
 module "evidenceshare-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
-  name                  = local.evidenceshare_topic_name
-  namespace_name        = local.servicebus_namespace_name
-  resource_group_name   = local.resource_group_name
+  source                                  = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
+  name                                    = local.evidenceshare_topic_name
+  namespace_name                          = local.servicebus_namespace_name
+  resource_group_name                     = local.resource_group_name
+  requires_duplicate_detection            =  true
+  duplicate_detection_history_time_window = "PT60M"
 }
 
 module "evidenceshare-subscription" {
