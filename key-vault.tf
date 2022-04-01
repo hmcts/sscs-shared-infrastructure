@@ -10,7 +10,7 @@ module "sscs-vault" {
   common_tags             = local.tags
   location                = var.location
 
-  create_managed_identity    = true
+  create_managed_identity = true
 }
 
 output "vaultName" {
