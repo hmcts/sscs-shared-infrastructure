@@ -5,7 +5,7 @@ provider "azurerm" {
 provider "azurerm" {
   features {}
   skip_provider_registration = true
-  alias                      = "private-endpoint"
+  alias                      = "private_endpoint"
   subscription_id            = var.aks_subscription_id
 }
 
