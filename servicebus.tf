@@ -22,7 +22,7 @@ module "servicebus-namespace" {
 }
 
 module "evidenceshare-topic" {
-  source                                  = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
+  source                                  = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=DTSPO-6371_azurerm_upgrade"
   name                                    = local.evidenceshare_topic_name
   namespace_name                          = local.servicebus_namespace_name
   resource_group_name                     = local.resource_group_name
@@ -31,7 +31,7 @@ module "evidenceshare-topic" {
 }
 
 module "evidenceshare-subscription" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-6371_azurerm_upgrade"
   name                = local.evidenceshare_subscription_name
   namespace_name      = local.servicebus_namespace_name
   resource_group_name = local.resource_group_name
@@ -39,7 +39,7 @@ module "evidenceshare-subscription" {
 }
 
 module "notifications-subscription" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-6371_azurerm_upgrade"
   name                = local.notifications_subscription_name
   namespace_name      = local.servicebus_namespace_name
   resource_group_name = local.resource_group_name
