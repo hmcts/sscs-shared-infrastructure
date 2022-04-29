@@ -12,7 +12,7 @@ variable "location" {
 }
 
 variable "shutterPageDirectory" {
-    default = "shutterPages"
+  default = "shutterPages"
 }
 
 variable "subscription" {}
@@ -41,3 +41,5 @@ variable "jenkins_AAD_objectId" {
 variable "managed_identity_object_id" {
   default = ""
 }
+
+variable "aks_subscription_id" {}

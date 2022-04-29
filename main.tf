@@ -2,14 +2,21 @@ provider "azurerm" {
   features {}
 }
 
+provider "azurerm" {
+  features {}
+  skip_provider_registration = true
+  alias                      = "private_endpoint"
+  subscription_id            = var.aks_subscription_id
+}
+
 locals {
   tags = "${
     merge(
       var.common_tags,
-      map(
-        "Team Contact", "#sscs",
-        "Team Name", "SSCS Team"
-      )
+      tomap({
+        "Team Contact" = "#sscs"
+        "Team Name" = "SSCS Team"
+      })
     )}"
 }
 resource "azurerm_resource_group" "rg" {

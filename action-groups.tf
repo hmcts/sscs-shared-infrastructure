@@ -1,5 +1,5 @@
 data "azurerm_key_vault_secret" "sscs_failure_email_secret" {
-  name      = "sscs-failure-email-to"
+  name         = "sscs-failure-email-to"
   key_vault_id = module.sscs-vault.key_vault_id
 }
 
