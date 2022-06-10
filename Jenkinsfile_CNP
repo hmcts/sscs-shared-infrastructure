@@ -3,6 +3,9 @@
 @Library("Infrastructure") _
 
 withInfraPipeline("sscs") {
+
+    syncBranchesWithMaster(branchesToSync)
+
     onMaster {
         enableSlackNotifications('#sscs-tech')
     }
