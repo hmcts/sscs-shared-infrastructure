@@ -3,7 +3,7 @@
 @Library("Infrastructure") _
 
 // Configure branches to sync with master branch
-def branchesToSync = ['demo', 'ithc']
+def branchesToSync = ['demo', 'ithc','perftest']
 
 withInfraPipeline("sscs") {
 
