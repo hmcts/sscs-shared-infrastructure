@@ -2,7 +2,13 @@
 //noinspection GroovyUnusedAssignment
 @Library("Infrastructure") _
 
+// Configure branches to sync with master branch
+def branchesToSync = ['demo', 'ithc','perftest']
+
 withInfraPipeline("sscs") {
+
+    syncBranchesWithMaster(branchesToSync)
+
     onMaster {
         enableSlackNotifications('#sscs-tech')
     }
