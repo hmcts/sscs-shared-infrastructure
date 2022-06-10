@@ -2,6 +2,9 @@
 //noinspection GroovyUnusedAssignment
 @Library("Infrastructure") _
 
+// Configure branches to sync with master branch
+def branchesToSync = ['demo', 'ithc']
+
 withInfraPipeline("sscs") {
 
     syncBranchesWithMaster(branchesToSync)
