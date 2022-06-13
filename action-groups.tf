@@ -45,6 +45,6 @@ module "sscs-dead-letter-action-group" {
   email_receiver_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
 }
 
-output "action_group_id" {
-  value = module.sscs-dead-letter-action-group.action_group_id
-}
+# output "action_group_id" {
+#   value = module.sscs-dead-letter-action-group.action_group_id
+# }
