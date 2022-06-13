@@ -26,8 +26,3 @@ module "sscs-fail-action-group-slack" {
   email_receiver_name    = "SSCS Alerts"
   email_receiver_address = "sscs-prod-monitoring-aaaac7vjnaaknbv4uixozinjim@hmcts-reform.slack.com"
 }
-
-data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
-  name         = "sscs-deal-letter-email-to"
-  key_vault_id = module.sscs-vault.key_vault_id
-}
