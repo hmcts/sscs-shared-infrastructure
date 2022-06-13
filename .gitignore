@@ -3,7 +3,6 @@ bootstrap-creds.json
 cfg-vmimg-store.json
 hashicorp-vault-token
 github-apikey
-.terraform
 # Intellij
 .idea/
 *.iml
@@ -11,4 +10,6 @@ github-apikey
 *.ipr
 *.class
 .DS_Store
-
+# Terraform
+.terraform.lock.hcl
+.terraform
