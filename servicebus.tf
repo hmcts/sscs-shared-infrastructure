@@ -38,7 +38,7 @@ module "evidenceshare-subscription" {
   resource_group_name = local.resource_group_name
   topic_name          = local.evidenceshare_topic_name
 
-  depends_on = [module.evidenceshare-topic]
+  depends_on = [ module.evidenceshare-topic]
 }
 
 module "notifications-subscription" {
@@ -48,5 +48,5 @@ module "notifications-subscription" {
   resource_group_name = local.resource_group_name
   topic_name          = local.evidenceshare_topic_name
 
-  depends_on = [module.evidenceshare-topic]
+  depends_on = [ module.evidenceshare-topic]
 }
