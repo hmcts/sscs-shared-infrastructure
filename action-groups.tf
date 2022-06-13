@@ -33,8 +33,8 @@ data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
 }
 
 module "sscs-dead-letter-action-group" {
-  source = "git@github.com:hmcts/cnp-module-action-group?ref=d75e941a8cc7e2c408f73bd74a0b03f726be32a2"
-
+  source = "git@github.com:hmcts/cnp-module-action-group?ref=master"
+  
   location = "global"
   env      = var.env
 
