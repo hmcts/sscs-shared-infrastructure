@@ -31,15 +31,3 @@ data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
   name         = "sscs-deal-letter-email-to"
   key_vault_id = module.sscs-vault.key_vault_id
 }
-
-module "sscs-dead-letter-action-group" {
-  source   = "git@github.com:hmcts/cnp-module-action-group"
-  location = "global"
-  env      = var.env
-
-  resourcegroup_name     = azurerm_resource_group.rg.name
-  action_group_name      = "SSCS Dead Letter Queue Alert - ${var.env}"
-  short_name             = "SSCS_DLet_alert"
-  email_receiver_name    = "SSCS Alerts"
-  email_receiver_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
-}
