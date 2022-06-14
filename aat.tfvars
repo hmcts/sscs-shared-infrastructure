@@ -32,7 +32,7 @@ monitor_metric_alerts = {
           {
             name     = "EntityName"
             operator = "Include"
-            values   = ["mohammeds-awesome-queue"]
+            values   = ["tribunals-to-hearing-api-aat"]
           }
         ]
       }
