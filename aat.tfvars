@@ -18,48 +18,34 @@ monitor_action_group = {
   }
 }
 
-# monitor_metric_alerts = {
-#   "uks-pk8s-esit-ggss-nodeready-alerts" = {
-#     metric_alert_name="sscs-dead-letter-alert"
-#     description = "Action will be triggered when the average count of dead-lettered messages in a queue/topic is greater than 0."
-#     metric_namespace = "Microsoft.ServiceBus/namespaces"
-#     metric_name      = "DeadletteredMessages"
-#     aggregation      = "Average"
-#     operator         = "GreaterThan"
-#     threshold        = 0
-#     dimension_name     = "ApiName"
-#     dimension_operator = "Include"
-#     dimension_va    = ["*"]
-#     criteria = [
-#       {
-#         metric_namespace = "Microsoft.ContainerService/managedClusters"
-#         metric_name      = "kube_node_status_condition"
-#         aggregation      = "Total"
-#         operator         = "GreaterThan"
-#         threshold        = 0
-#         dimension = [
-#           {
-#             name     = "condition"
-#             operator = "Include"
-#             values   = ["Ready"]
-#           },
-#           {
-#             name     = "status2"
-#             operator = "Exclude"
-#             values   = ["Ready"]
-#           },
-#           {
-#             name     = "node"
-#             operator = "StartsWith"
-#             values   = ["aks-ggs"]
-#           },
-#         ]
-#       }
-#     ]
-#     action = [
-#       {
-#         action_group_name = "uks-pk8s-esit-ggss-alerts"
-#       }
-#     ]
-#   }
-# }
+
+monitor_metric_alerts = {
+  "sscs-aat-dead-letter-alerts" = {
+    criteria = [
+      {
+        metric_namespace = "microsoft.insights/components"
+        metric_name      = "requests/failed"
+        aggregation      = "Count"
+        operator         = "GreaterThan"
+        threshold        = 0
+        dimension = [
+          {
+            name     = "request/resultCode"
+            operator = "StartsWith"
+            values   = [4]
+          },
+          {
+            name     = "cloud/roleName"
+            operator = "StartsWith"
+            values   = ["GGS"]
+          }
+        ]
+      }
+    ]
+    action = [
+      {
+        action_group_name = "sscs-aat-dead-letter"
+      }
+    ]
+  }
+}
