@@ -74,7 +74,7 @@ resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
     }
   }
 
-  tags = var.tags
+  # tags = var.tags
 }
 
 # output "action_group_id" {
