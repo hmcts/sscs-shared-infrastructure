@@ -32,32 +32,6 @@ data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
   key_vault_id = module.sscs-vault.key_vault_id
 }
 
-# module "sscs-dead-letter-action-group" {
-#   source = "git@github.com:hmcts/cnp-module-action-group?ref=murtest"
-
-#   location = "global"
-#   env      = var.env
-
-#   resourcegroup_name     = azurerm_resource_group.rg.name
-#   action_group_name      = "SSCS Dead Letter Queue Alert - ${var.env}"
-#   short_name             = "SSCS_DLet_alert"
-#   email_receiver_name    = "SSCS Alerts"
-#   email_receiver_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
-# }
-
-# resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
-#   for_each = { for monitor_action_group in var.monitor_action_groups : monitor_action_group.groupName => monitor_action_group}
-  
-#   name                = "SSCS Dead Letter Queue Alert - ${var.env}"
-#   resource_group_name = azurerm_resource_group.rg.name
-#   short_name          = each.value.short_name
-
-#   email_receiver {
-#     name          = each.value.email_receiver_name
-#     email_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
-#   }
-# }
-
 resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
   for_each            = var.monitor_action_group
   name                = each.key
@@ -76,7 +50,3 @@ resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
 
   tags = local.tags
 }
-
-# output "action_group_id" {
-#   value = module.sscs-dead-letter-action-group.action_group_id
-# }
