@@ -60,22 +60,26 @@ resource "azurerm_monitor_metric_alert" "alerts" {
   name                     = each.key
   resource_group_name      = azurerm_resource_group.rg.name
   scopes                   = [module.servicebus-namespace.id]
-  description              = try(each.value.description, null)
-  enabled                  = try(each.value.enabled, null)
-  auto_mitigate            = try(each.value.auto_mitigate, null)
-  frequency                = try(each.value.frequency, null)
-  severity                 = try(each.value.severity, null)
-  target_resource_type     = try(each.value.target_resource_type, null)
-  target_resource_location = try(each.value.target_resource_location, null)
-  window_size              = try(each.value.window_size, null)
 
-  dynamic "action" {
-    for_each = try(each.value.action, {})
+  dynamic "criteria" {
+    for_each = try(each.value.criteria, {})
     content {
-      action_group_id    = azurerm_monitor_action_group.scs-dead-letter-action-group[action.value.action_group_name].id
-      webhook_properties = try(action.value.webhook_properties, {})
+      metric_namespace       = criteria.value.metric_namespace
+      metric_name            = criteria.value.metric_name
+      aggregation            = criteria.value.aggregation
+      operator               = criteria.value.operator
+      threshold              = criteria.value.threshold
+      skip_metric_validation = try(criteria.value.skip_metric_validation, null)
+
+      dynamic "dimension" {
+        for_each = try(criteria.value.dimension, {})
+        content {
+          name     = dimension.value.name
+          operator = dimension.value.operator
+          values   = dimension.value.values
+        }
+      }
     }
   }
-
   # tags = var.tags
 }
