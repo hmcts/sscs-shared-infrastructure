@@ -50,3 +50,6 @@ variable "aks_subscription_id" {}
 variable "monitor_action_group" {
   default = {}
 }
+variable "monitor_metric_alerts" {
+  default = {}
+}
