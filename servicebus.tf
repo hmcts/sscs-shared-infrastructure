@@ -47,4 +47,6 @@ module "notifications-subscription" {
   namespace_name      = local.servicebus_namespace_name
   resource_group_name = local.resource_group_name
   topic_name          = local.evidenceshare_topic_name
+
+  depends_on = [module.evidenceshare-topic]
 }
