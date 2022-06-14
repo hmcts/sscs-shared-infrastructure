@@ -63,5 +63,5 @@ resource "azurerm_monitor_metric_alert" "alerts" {
     }
   }
 
-  tags = var.local.tags
+  tags = local.tags
 }
