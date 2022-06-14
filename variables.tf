@@ -43,3 +43,10 @@ variable "managed_identity_object_id" {
 }
 
 variable "aks_subscription_id" {}
+
+#================================================================================================
+# Monitor Variables
+#================================================================================================
+variable "monitor_action_group" {
+  default = {}
+}
