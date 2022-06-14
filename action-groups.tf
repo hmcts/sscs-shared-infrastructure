@@ -28,6 +28,8 @@ module "sscs-fail-action-group-slack" {
 }
 
 data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
+  for_each            = var.monitor_action_group
+
   name         = "sscs-dead-letter-email-to"
   key_vault_id = module.sscs-vault.key_vault_id
 }
@@ -43,7 +45,7 @@ resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
     for_each = try(each.value.email_receiver, {})
     content {
       name                    = email_receiver.value.email_receiver_name
-      email_address           = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
+      email_address           = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret[each.key].value
       use_common_alert_schema = try(email_receiver.value.use_common_alert_schema, null)
     }
   }
