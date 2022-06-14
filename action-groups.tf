@@ -45,7 +45,7 @@ data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
 #   email_receiver_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
 # }
 
-resource "azurerm_monitor_action_group" "example" {
+resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
   name                = "SSCS Dead Letter Queue Alert - ${var.env}"
   resource_group_name = azurerm_resource_group.rg.name
   short_name          = "SSCS_DLet_alert"
