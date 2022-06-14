@@ -23,21 +23,16 @@ monitor_metric_alerts = {
   "sscs-aat-dead-letter-alerts" = {
     criteria = [
       {
-        metric_namespace = "microsoft.insights/components"
-        metric_name      = "requests/failed"
-        aggregation      = "Count"
+        metric_namespace = "Microsoft.ServiceBus/namespaces"
+        metric_name      = "DeadletteredMessages"
+        aggregation      = "Average"
         operator         = "GreaterThan"
         threshold        = 0
         dimension = [
           {
-            name     = "request/resultCode"
-            operator = "StartsWith"
-            values   = [4]
-          },
-          {
-            name     = "cloud/roleName"
-            operator = "StartsWith"
-            values   = ["GGS"]
+            name     = "EntityName"
+            operator = "Include"
+            values   = ["mohammeds-awesome-queue"]
           }
         ]
       }
