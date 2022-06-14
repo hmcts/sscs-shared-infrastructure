@@ -15,6 +15,7 @@ monitor_action_group = {
         email_receiver_name = "SSCS Alerts"
       }
     ]
+  }
 }
 
 # monitor_metric_alerts = {
