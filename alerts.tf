@@ -55,27 +55,4 @@ module "sscs-sya-submit-fail-alert" {
 #   common_tags                = var.common_tags
 # }
 
-resource "azurerm_monitor_metric_alert" "sscs-dead-letter-alert" {
-  name                = "sscs-dead-letter-alert"
-  resource_group_name = azurerm_resource_group.rg.name
-  scopes              = [module.servicebus-namespace.id]
-  description         = "Action will be triggered when the average count of dead-lettered messages in a queue/topic is greater than 0."
 
-  criteria {
-    metric_namespace = "Microsoft.ServiceBus/namespaces"
-    metric_name      = "DeadletteredMessages"
-    aggregation      = "Average"
-    operator         = "GreaterThan"
-    threshold        = 0
-
-    dimension {
-      name     = "ApiName"
-      operator = "Include"
-      values   = ["*"]
-    }
-  }
-
-  action {
-    action_group_id = azurerm_monitor_action_group.scs-dead-letter-action-group.id # "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourceGroups/sscs-demo/providers/microsoft.insights/actiongroups/sscs fail slack alert - demo" # module.sscs-dead-letter-action-group.action_group_name
-  }
-}

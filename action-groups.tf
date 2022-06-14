@@ -34,7 +34,7 @@ data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
 
 # module "sscs-dead-letter-action-group" {
 #   source = "git@github.com:hmcts/cnp-module-action-group?ref=murtest"
-  
+
 #   location = "global"
 #   env      = var.env
 
@@ -45,15 +45,36 @@ data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
 #   email_receiver_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
 # }
 
-resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
-  name                = "SSCS Dead Letter Queue Alert - ${var.env}"
-  resource_group_name = azurerm_resource_group.rg.name
-  short_name          = "SSCS_DeadLet"
+# resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
+#   for_each = { for monitor_action_group in var.monitor_action_groups : monitor_action_group.groupName => monitor_action_group}
+  
+#   name                = "SSCS Dead Letter Queue Alert - ${var.env}"
+#   resource_group_name = azurerm_resource_group.rg.name
+#   short_name          = each.value.short_name
 
-  email_receiver {
-    name          = "SSCS Alerts"
-    email_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
+#   email_receiver {
+#     name          = each.value.email_receiver_name
+#     email_address = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
+#   }
+# }
+
+resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
+  for_each            = var.monitor_action_group
+  name                = each.key
+  resource_group_name = azurerm_resource_group.rg.name
+  short_name          = each.value.short_name
+  enabled             = try(each.value.enabled, null)
+
+  dynamic "email_receiver" {
+    for_each = try(each.value.email_receiver, {})
+    content {
+      name                    = email_receiver.value.email_receiver_name
+      email_address           = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret.value
+      use_common_alert_schema = try(email_receiver.value.use_common_alert_schema, null)
+    }
   }
+
+  tags = var.tags
 }
 
 # output "action_group_id" {
