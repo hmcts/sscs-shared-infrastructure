@@ -21,6 +21,8 @@ monitor_action_group = {
 
 monitor_metric_alerts = {
   "sscs-demo-dead-letter-alerts" = {
+    window_size = "PT15M"
+    frequency   = "PT5M"
     criteria = [
       {
         metric_namespace = "Microsoft.ServiceBus/namespaces"

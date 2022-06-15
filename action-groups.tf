@@ -36,6 +36,7 @@ data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
 
 resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
   for_each            = var.monitor_action_group
+
   name                = each.key
   resource_group_name = azurerm_resource_group.rg.name
   short_name          = each.value.short_name

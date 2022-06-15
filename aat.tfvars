@@ -21,6 +21,8 @@ monitor_action_group = {
 
 monitor_metric_alerts = {
   "sscs-aat-dead-letter-alerts" = {
+    window_size = "PT15M"
+    frequency   = "PT5M"
     criteria = [
       {
         metric_namespace = "Microsoft.ServiceBus/namespaces"
@@ -28,6 +30,7 @@ monitor_metric_alerts = {
         aggregation      = "Average"
         operator         = "GreaterThan"
         threshold        = 0
+
         dimension = [
           {
             name     = "EntityName"

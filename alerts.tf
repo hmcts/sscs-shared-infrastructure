@@ -41,7 +41,9 @@ resource "azurerm_monitor_metric_alert" "alerts" {
   name                = each.key
   resource_group_name = azurerm_resource_group.rg.name
   scopes              = [module.servicebus-namespace.id]
-
+  window_size              = try(each.value.window_size, null)
+  frequency                = try(each.value.frequency, null)
+  
   dynamic "criteria" {
     for_each = try(each.value.criteria, {})
     content {
