@@ -21,7 +21,7 @@ monitor_action_group = {
 
 monitor_metric_alerts = {
   "sscs-demo-dead-letter-alerts" = {
-    window_size = "PT15M"
+    window_size = "PT5M"
     frequency   = "PT5M"
     criteria = [
       {
