@@ -35,3 +35,35 @@ module "sscs-sya-submit-fail-alert" {
   resourcegroup_name         = azurerm_resource_group.rg.name
   common_tags                = var.common_tags
 }
+
+resource "azurerm_monitor_metric_alert" "alerts" {
+  for_each            = var.monitor_metric_alerts
+  name                = each.key
+  resource_group_name = azurerm_resource_group.rg.name
+  scopes              = [module.servicebus-namespace.id]
+  window_size              = try(each.value.window_size, null)
+  frequency                = try(each.value.frequency, null)
+  
+  dynamic "criteria" {
+    for_each = try(each.value.criteria, {})
+    content {
+      metric_namespace       = criteria.value.metric_namespace
+      metric_name            = criteria.value.metric_name
+      aggregation            = criteria.value.aggregation
+      operator               = criteria.value.operator
+      threshold              = criteria.value.threshold
+      skip_metric_validation = try(criteria.value.skip_metric_validation, null)
+
+      dynamic "dimension" {
+        for_each = try(criteria.value.dimension, {})
+        content {
+          name     = dimension.value.name
+          operator = dimension.value.operator
+          values   = dimension.value.values
+        }
+      }
+    }
+  }
+
+  tags = local.tags
+}

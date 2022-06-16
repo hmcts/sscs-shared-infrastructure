@@ -26,3 +26,30 @@ module "sscs-fail-action-group-slack" {
   email_receiver_name    = "SSCS Alerts"
   email_receiver_address = "sscs-prod-monitoring-aaaac7vjnaaknbv4uixozinjim@hmcts-reform.slack.com"
 }
+
+data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
+  for_each            = var.monitor_action_group
+
+  name         = "sscs-dead-letter-email-to"
+  key_vault_id = module.sscs-vault.key_vault_id
+}
+
+resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
+  for_each            = var.monitor_action_group
+
+  name                = each.key
+  resource_group_name = azurerm_resource_group.rg.name
+  short_name          = each.value.short_name
+  enabled             = try(each.value.enabled, null)
+
+  dynamic "email_receiver" {
+    for_each = try(each.value.email_receiver, {})
+    content {
+      name                    = email_receiver.value.email_receiver_name
+      email_address           = data.azurerm_key_vault_secret.sscs_dead_letter_email_secret[each.key].value
+      use_common_alert_schema = try(email_receiver.value.use_common_alert_schema, null)
+    }
+  }
+
+  tags = local.tags
+}
