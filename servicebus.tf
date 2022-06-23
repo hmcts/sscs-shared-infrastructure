@@ -50,3 +50,14 @@ module "notifications-subscription" {
 
   depends_on = [module.evidenceshare-topic]
 }
+
+output "sb_primary_send_and_listen_shared_access_key" {
+  value     = module.servicebus-namespace.primary_send_and_listen_shared_access_key
+  sensitive = true
+}
+
+resource "azurerm_key_vault_secret" "servicebus_primary_shared_access_key" {
+  name         = "tribunals-hearing-queue-shared-access-key"
+  value        = module.servicebus-namespace.primary_send_and_listen_shared_access_key
+  key_vault_id = module.sscs-vault.key_vault_id
+}
