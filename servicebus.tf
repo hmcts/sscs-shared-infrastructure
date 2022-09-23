@@ -61,3 +61,14 @@ resource "azurerm_key_vault_secret" "servicebus_primary_shared_access_key" {
   value        = module.servicebus-namespace.primary_send_and_listen_shared_access_key
   key_vault_id = module.sscs-vault.key_vault_id
 }
+
+output "sb_primary_send_and_listen_connection_string" {
+  value     = module.servicebus-namespace.primary_send_and_listen_connection_string
+  sensitive = true
+}
+
+resource "azurerm_key_vault_secret" "servicebus_primary_connection_string" {
+  name         = "sscs-servicebus-connection-string-tf"
+  value        = module.servicebus-namespace.primary_send_and_listen_connection_string
+  key_vault_id = module.sscs-vault.key_vault_id
+}
