@@ -27,7 +27,7 @@ module "evidenceshare-topic" {
   namespace_name                          = local.servicebus_namespace_name
   resource_group_name                     = local.resource_group_name
   requires_duplicate_detection            = true
-  duplicate_detection_history_time_window = "PT60M"
+  duplicate_detection_history_time_window = "PT1H"
   max_size_in_megabytes                   = 2048
 }
 
