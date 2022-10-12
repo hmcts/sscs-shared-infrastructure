@@ -27,7 +27,7 @@ module "evidenceshare-topic" {
   namespace_name                          = local.servicebus_namespace_name
   resource_group_name                     = local.resource_group_name
   requires_duplicate_detection            = true
-  duplicate_detection_history_time_window = "PT60M"
+  duplicate_detection_history_time_window = "PT1H"
   max_size_in_megabytes                   = 2048
 }
 
@@ -59,5 +59,16 @@ output "sb_primary_send_and_listen_shared_access_key" {
 resource "azurerm_key_vault_secret" "servicebus_primary_shared_access_key" {
   name         = "sscs-servicebus-shared-access-key"
   value        = module.servicebus-namespace.primary_send_and_listen_shared_access_key
+  key_vault_id = module.sscs-vault.key_vault_id
+}
+
+output "sb_primary_send_and_listen_connection_string" {
+  value     = module.servicebus-namespace.primary_send_and_listen_connection_string
+  sensitive = true
+}
+
+resource "azurerm_key_vault_secret" "servicebus_primary_connection_string" {
+  name         = "sscs-servicebus-connection-string-tf"
+  value        = module.servicebus-namespace.primary_send_and_listen_connection_string
   key_vault_id = module.sscs-vault.key_vault_id
 }
