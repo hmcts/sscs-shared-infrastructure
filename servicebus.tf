@@ -60,7 +60,11 @@ resource "azurerm_key_vault_secret" "servicebus_primary_shared_access_key" {
   name         = "sscs-servicebus-shared-access-key"
   value        = module.servicebus-namespace.primary_send_and_listen_shared_access_key
   key_vault_id = module.sscs-vault.key_vault_id
+
   content_type = "terraform-managed,service-bus"
+  tags = merge(local.tags, {
+    "source" : "Service Bus ${module.servicebus-namespace.name}"
+  })
 }
 
 output "sb_primary_send_and_listen_connection_string" {
@@ -72,5 +76,9 @@ resource "azurerm_key_vault_secret" "servicebus_primary_connection_string" {
   name         = "sscs-servicebus-connection-string-tf"
   value        = module.servicebus-namespace.primary_send_and_listen_connection_string
   key_vault_id = module.sscs-vault.key_vault_id
+
   content_type = "terraform-managed,service-bus"
+  tags = merge(local.tags, {
+    "source" : "Service Bus ${module.servicebus-namespace.name}"
+  })
 }

@@ -16,7 +16,10 @@ resource "azurerm_key_vault_secret" "app_insights_key" {
   value        = azurerm_application_insights.appinsights.instrumentation_key
   key_vault_id = module.sscs-vault.key_vault_id
 
-  tags = local.tags
+  content_type = "terraform-managed,service-bus"
+  tags = merge(local.tags, {
+    "source" : "Service Bus ${module.servicebus-namespace.name}"
+  })
 }
 
 output "appInsightsInstrumentationKey" {

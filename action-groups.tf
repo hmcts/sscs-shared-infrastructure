@@ -28,14 +28,14 @@ module "sscs-fail-action-group-slack" {
 }
 
 data "azurerm_key_vault_secret" "sscs_dead_letter_email_secret" {
-  for_each            = var.monitor_action_group
+  for_each = var.monitor_action_group
 
   name         = "sscs-dead-letter-email-to"
   key_vault_id = module.sscs-vault.key_vault_id
 }
 
 resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
-  for_each            = var.monitor_action_group
+  for_each = var.monitor_action_group
 
   name                = each.key
   resource_group_name = azurerm_resource_group.rg.name
