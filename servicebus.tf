@@ -30,7 +30,7 @@ module "evidenceshare-topic" {
   duplicate_detection_history_time_window = "PT1H"
   max_size_in_megabytes                   = 2048
 }
-
+  
 module "evidenceshare-subscription" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                = local.evidenceshare_subscription_name
@@ -80,5 +80,21 @@ resource "azurerm_key_vault_secret" "servicebus_primary_connection_string" {
   content_type = "terraform-managed,service-bus"
   tags = merge(local.tags, {
     "source" : "Service Bus ${module.servicebus-namespace.name}"
+  })
+}
+    
+output "evidence_share_topic_primary_shared_access_key" {
+  value     = module.evidenceshare-topic.primary_send_and_listen_shared_access_key
+  sensitive = true
+}
+
+resource "azurerm_key_vault_secret" "evidence_share_topic_primary_shared_access_key" {
+  name         = "evidence-share-topic-shared-access-key"
+  value        = module.evidenceshare-topic.primary_send_and_listen_shared_access_key
+  key_vault_id = module.sscs-vault.key_vault_id
+
+  content_type = "terraform-managed,service-bus"
+  tags = merge(local.tags, {
+    "source" : "Service Bus ${module.evidenceshare-topic.name}"
   })
 }
