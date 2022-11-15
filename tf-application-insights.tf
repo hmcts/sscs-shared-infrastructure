@@ -18,7 +18,18 @@ resource "azurerm_key_vault_secret" "app_insights_key" {
 
   content_type = "terraform-managed,service-bus"
   tags = merge(local.tags, {
-    "source" : "Service Bus ${module.servicebus-namespace.name}"
+    "source" : "App Insights ${azurerm_application_insights.appinsights.name}"
+  })
+}
+
+resource "azurerm_key_vault_secret" "app_insights_connectionstring" {
+  name         = "AppInsightsConnectionString"
+  value        = azurerm_application_insights.appinsights.connection_string
+  key_vault_id = module.sscs-vault.key_vault_id
+
+  content_type = "terraform-managed,service-bus"
+  tags = merge(local.tags, {
+    "source" : "App Insights ${azurerm_application_insights.appinsights.name}"
   })
 }
 
