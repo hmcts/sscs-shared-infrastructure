@@ -35,7 +35,7 @@ data "azurerm_key_vault_secret" "sftp_user_name" {
 # Workaround until azurerm_storage_account supports the ability to create local users
 resource "azapi_resource" "add_local_user" {
   type = "Microsoft.Storage/storageAccounts/localUsers@2021-09-01"
-  name = "${azurerm_key_vault_secret.sftp_user_name.value}"
+  name = "${data.azurerm_key_vault_secret.sftp_user_name.value}"
   parent_id = azurerm_storage_account.sftp_storage.id
 
   body = jsonencode({
