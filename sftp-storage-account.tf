@@ -1,6 +1,6 @@
 
 resource "azurerm_storage_account" "sftp_storage" {
-  name                     = "sscs-sftp"
+  name                     = "sscs-${var.env}-sa"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
@@ -22,7 +22,7 @@ resource "azurerm_storage_container" "sftp_container" {
   container_access_type = "private"
 }
 
-data "azurerm_key_vault_secret" "sftp_user_ssh_key" {
+data "azurerm_key_vault_secret" "sftp_user_key" {
   name         = "sftp-user-pub-key"
   key_vault_id = module.sscs-vault.key_vault_id
 }
@@ -51,7 +51,7 @@ resource "azapi_resource" "add_local_user" {
       "sshAuthorizedKeys" : [
         {
           "description" : "key name",
-          "key" : "${data.azurerm_key_vault_secret.sftp_user_ssh_key.value}"
+          "key" : "${data.azurerm_key_vault_secret.sftp_user_key.value}"
         }
       ],
       "homeDirectory" : "upload"
