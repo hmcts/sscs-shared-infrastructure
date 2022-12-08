@@ -28,7 +28,7 @@ data "azurerm_key_vault_secret" "sftp_user_key" {
 }
 
 data "azurerm_key_vault_secret" "sftp_user_name" {
-  name         = "sftp-user-name"
+  name         = "sftp-user"
   key_vault_id = module.sscs-vault.key_vault_id
 }
 
