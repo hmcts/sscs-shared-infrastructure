@@ -43,11 +43,12 @@ resource "azapi_resource" "add_local_user" {
       "permissionScopes" : [
         {
           "permissions" : "rwd",
-          "service" : "file",
+          "service" : "blob",
           "resourceName" : "upload"
         }
       ],
-      "hasSshPassword" : true,
+      "hasSshPassword" : false,
+      "hasSshKey" : true
       "sshAuthorizedKeys" : [
         {
           "description" : "key name",
