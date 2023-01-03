@@ -22,9 +22,31 @@ resource "azurerm_storage_container" "sftp_container" {
   container_access_type = "private"
 }
 
-data "azurerm_key_vault_secret" "sftp_user_key" {
+resource "tls_private_key" "sftp_key" {
+    algorithm = "RSA"
+    rsa_bits = 4096
+}
+
+resource "azurerm_key_vault_secret" "sftp_pub_key" {
   name         = "sftp-user-pub-key"
+  value        = tls_private_key.sftp_key.public_key_openssh
   key_vault_id = module.sscs-vault.key_vault_id
+
+  content_type = "terraform-managed,sftp-key"
+  tags = merge(local.tags, {
+    "source" : "Storage Account ${azurerm_storage_account.sftp_storage.name}"
+  })
+}
+
+resource "azurerm_key_vault_secret" "sftp_priv_key" {
+  name         = "sftp-user-priv-key"
+  value        = tls_private_key.sftp_key.private_key_openssh
+  key_vault_id = module.sscs-vault.key_vault_id
+
+  content_type = "terraform-managed,sftp-key"
+  tags = merge(local.tags, {
+    "source" : "Storage Account ${azurerm_storage_account.sftp_storage.name}"
+  })
 }
 
 data "azurerm_key_vault_secret" "sftp_user_name" {
@@ -52,7 +74,7 @@ resource "azapi_resource" "add_local_user" {
       "sshAuthorizedKeys" : [
         {
           "description" : "key name",
-          "key" : "${data.azurerm_key_vault_secret.sftp_user_key.value}"
+          "key" : "${azurerm_key_vault_secret.sftp_pub_key.value}"
         }
       ],
       "homeDirectory" : "upload"
