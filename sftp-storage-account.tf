@@ -7,13 +7,7 @@ resource "azurerm_storage_account" "sftp_storage" {
   account_replication_type = "LRS"
   is_hns_enabled           = true
   sftp_enabled             = true
-
-  tags = {
-    environment  = "sandbox"
-    application  = "heritage"
-    businessArea = "cross-cutting"
-    builtFrom    = "terraform"
-  }
+  tags                     = local.tags
 }
 
 resource "azurerm_storage_container" "sftp_container" {
