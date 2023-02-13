@@ -36,7 +36,7 @@ resource "azapi_resource" "add_local_user" {
     properties = {
       "permissionScopes" : [
         {
-          "permissions" : "rwd",
+          "permissions" : "rwdcl",
           "service" : "blob",
           "resourceName" : "upload"
         }
