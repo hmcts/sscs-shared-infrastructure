@@ -28,8 +28,6 @@ variable "tribunals_frontend_external_hostname" {}
 
 variable "external_cert_vault_uri" {}
 
-variable "ilbIp" {}
-
 variable "tenant_id" {
   description = "The Tenant ID of the Azure Active Directory"
 }
