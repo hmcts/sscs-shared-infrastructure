@@ -10,6 +10,12 @@ resource "azurerm_storage_account" "sftp_storage" {
   tags                     = local.tags
 }
 
+resource "azurerm_role_assignment" "sftp_storage_access" {
+  scope                = azurerm_storage_account.sftp_storage.id
+  principal_id         = var.sftp_access_AAD_objectId
+  role_definition_name = "Storage Blob Data Contributor"
+}
+
 resource "azurerm_storage_container" "sftp_container" {
   name                  = "upload"
   storage_account_name  = azurerm_storage_account.sftp_storage.name

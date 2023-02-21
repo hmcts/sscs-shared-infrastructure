@@ -45,3 +45,5 @@ monitor_metric_alerts = {
     ]
   }
 }
+
+sftp_access_AAD_objectId = "aa694620-518d-44a4-b494-0f8fe298f2b0" // dcd_sscs
