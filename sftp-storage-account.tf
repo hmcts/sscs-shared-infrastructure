@@ -52,12 +52,6 @@ data "azurerm_key_vault_secret" "sftp_user_name" {
   key_vault_id = module.sscs-vault.key_vault_id
 }
 
-resource "null_resource" "authorized_keys" {
-  for_each    = toset(azurerm_key_vault_secret.sftp_user_keys)
-  description = each.value.name
-  key         = each.value.value
-}
-
 # Workaround until azurerm_storage_account supports the ability to create local users
 resource "azapi_resource" "add_local_user" {
   type = "Microsoft.Storage/storageAccounts/localUsers@2021-09-01"
@@ -74,7 +68,12 @@ resource "azapi_resource" "add_local_user" {
         }
       ],
       "hasSshPassword" : true,
-      "sshAuthorizedKeys" : "${null_resource.authorized_keys}",
+      "sshAuthorizedKeys" : [
+        for k in azurerm_key_vault_secret.sftp_user_keys : {
+          "description": k.name,
+          "key": k.value
+        }
+      ],
       "homeDirectory" : "upload"
     }
   })
