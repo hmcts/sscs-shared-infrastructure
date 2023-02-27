@@ -70,7 +70,7 @@ resource "azapi_resource" "add_local_user" {
       ],
       "hasSshPassword" : true,
       "sshAuthorizedKeys" : [
-        for k in azurerm_key_vault_secret.sftp_user_keys : {
+        for k in data.azurerm_key_vault_secret.sftp_user_keys : {
           "description": k.name,
           "key": k.value
         }
