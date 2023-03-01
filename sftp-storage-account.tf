@@ -39,7 +39,7 @@ resource "azurerm_storage_container" "sftp_container" {
 }
 
 data "azurerm_key_vault_secret" "sftp_user_keys" {
-  for_each     = var.sftp_allowed_key_secrets
+  for_each     = toset(var.sftp_allowed_key_secrets)
   name         = each.value #"sftp-user-pub-key"
   key_vault_id = module.sscs-vault.key_vault_id
 }
