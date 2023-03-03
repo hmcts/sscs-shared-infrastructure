@@ -36,6 +36,16 @@ variable "jenkins_AAD_objectId" {
   description = "This is the ID of the Application you wish to give access to the Key Vault via the access policy"
 }
 
+variable "sftp_access_AAD_objectId" {
+  description = "Object ID of the group you wish to give access to the SFTP storage account via access policy"
+}
+
+variable "sftp_allowed_key_secrets" {
+  description = "A list of names of public keys in the vault to allow access to"
+  type = list(string)
+  default = []
+}
+
 variable "managed_identity_object_id" {
   default = ""
 }
