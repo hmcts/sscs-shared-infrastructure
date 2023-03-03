@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "sftp_storage" {
   tags                     = local.tags
 }*/
 
-module "sftp_storage_account" {
+module "sftp_storage" {
   source = "git@github.com:hmcts/cnp-module-storage-account?ref=feature/sftp-support"
   env                      = var.env
   storage_account_name     = "sscssftp${var.env}"
@@ -34,7 +34,7 @@ module "sftp_storage_account" {
 
 resource "azurerm_storage_container" "sftp_container" {
   name                  = "upload"
-  storage_account_name  = module.sftp_storage_account.storageaccount_name
+  storage_account_name  = module.sftp_storage.storageaccount_name
   container_access_type = "private"
 }
 
@@ -53,7 +53,7 @@ data "azurerm_key_vault_secret" "sftp_user_name" {
 resource "azapi_resource" "add_local_user" {
   type = "Microsoft.Storage/storageAccounts/localUsers@2021-09-01"
   name = "${data.azurerm_key_vault_secret.sftp_user_name.value}"
-  parent_id = module.sftp_storage_account.storageaccount_id
+  parent_id = module.sftp_storage.storageaccount_id
 
   body = jsonencode({
     properties = {
