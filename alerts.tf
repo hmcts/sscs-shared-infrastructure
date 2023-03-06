@@ -12,7 +12,7 @@ module "sscs-fail-alert" {
   action_group_name          = module.sscs-fail-action-group.action_group_name
   custom_email_subject       = "SSCS Service Exception"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 0
+  trigger_threshold          = "0"
   resourcegroup_name         = azurerm_resource_group.rg.name
   common_tags                = var.common_tags
 }
@@ -31,7 +31,7 @@ module "sscs-sya-submit-fail-alert" {
   action_group_name          = module.sscs-fail-action-group-slack.action_group_name
   custom_email_subject       = "Multiple SSCS SYA Submission Failing"
   trigger_threshold_operator = "GreaterThan"
-  trigger_threshold          = 1
+  trigger_threshold          = "1"
   resourcegroup_name         = azurerm_resource_group.rg.name
   common_tags                = var.common_tags
 }
