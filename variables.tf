@@ -42,8 +42,14 @@ variable "sftp_access_AAD_objectId" {
 
 variable "sftp_allowed_key_secrets" {
   description = "A list of names of public keys in the vault to allow access to"
-  type = list(string)
+  type    = list(string)
   default = []
+}
+
+variable "sftp_allowed_sa_subnets" {
+  description = "Subnets allowed to access storage account"
+  type        = list(string)
+  default     = []
 }
 
 variable "managed_identity_object_id" {

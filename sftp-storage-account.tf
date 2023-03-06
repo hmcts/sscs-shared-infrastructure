@@ -27,6 +27,8 @@ module "sftp_storage" {
     "Storage Blob Data Contributor"
   ]
 
+  sa_subnets = var.sftp_allowed_sa_subnets
+
   team_name    = "SSCS Team"
   team_contact = "#sscs"
   common_tags  = var.common_tags

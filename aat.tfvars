@@ -50,3 +50,6 @@ monitor_metric_alerts = {
 
 sftp_allowed_key_secrets = ["sftp-user-pub-key"]
 sftp_access_AAD_objectId = "aa694620-518d-44a4-b494-0f8fe298f2b0" // dcd_sscs
+sftp_allowed_sa_subnets = [
+  "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-ptl-network-rg/providers/Microsoft.Network/virtualNetworks/cft-ptl-vnet/subnets/iaas" // Jenkins subnet
+]
