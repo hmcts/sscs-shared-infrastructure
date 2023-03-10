@@ -52,12 +52,6 @@ variable "sftp_allowed_sa_subnets" {
   default     = []
 }
 
-variable "sftp_default_action" {
-  description = "Default network action for SFTP storage account"
-  type        = string
-  default     = "Deny"
-}
-
 variable "managed_identity_object_id" {
   default = ""
 }
