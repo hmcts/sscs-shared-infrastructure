@@ -21,6 +21,7 @@ module "sftp_storage" {
   account_replication_type = "LRS"
   enable_hns               = "true"
   enable_sftp              = "true"
+  default_action           = var.sftp_default_action
   
   managed_identity_object_id = var.sftp_access_AAD_objectId
   role_assignments = [
