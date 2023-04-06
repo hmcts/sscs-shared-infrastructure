@@ -11,6 +11,11 @@ variable "location" {
   default = "UK South"
 }
 
+variable "businessArea" {
+  default = "cft"
+}
+
+
 variable "shutterPageDirectory" {
   default = "shutterPages"
 }
@@ -51,6 +56,7 @@ variable "managed_identity_object_id" {
 }
 
 variable "aks_subscription_id" {}
+
 
 #================================================================================================
 # Monitor Variables
