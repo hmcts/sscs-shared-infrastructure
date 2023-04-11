@@ -3,9 +3,17 @@ locals {
   private_endpoint_vnet_name = var.businessArea == "sds" ? "ss-${var.env}-vnet" : "${var.businessArea}-${var.env}-vnet"
 }
 
+# CFT only, on SDS remove this provider
+provider "azurerm" {
+  alias           = "private_endpoints"
+  subscription_id = var.aks_subscription_id
+  features {}
+  skip_provider_registration = true
+}
+
 data "azurerm_subnet" "private_endpoints" {
   # CFT only you will need to provide an extra provider, uncomment the below line, on SDS remove this line and the next
-  # azurerm.private_endpoints
+  azurerm.private_endpoints
 
   resource_group_name  = local.private_endpoint_rg_name
   virtual_network_name = local.private_endpoint_vnet_name
@@ -28,7 +36,7 @@ module "sftp_storage" {
   role_assignments = [
     "Storage Blob Data Contributor"
   ]
-  
+
   private_endpoint_subnet_id = data.azurerm_subnet.private_endpoints.id
 
   team_name    = "SSCS Team"
