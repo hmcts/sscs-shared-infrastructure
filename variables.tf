@@ -11,6 +11,11 @@ variable "location" {
   default = "UK South"
 }
 
+variable "businessArea" {
+  default = "cft"
+}
+
+
 variable "shutterPageDirectory" {
   default = "shutterPages"
 }
@@ -46,17 +51,12 @@ variable "sftp_allowed_key_secrets" {
   default = []
 }
 
-variable "sftp_allowed_sa_subnets" {
-  description = "Subnets allowed to access storage account"
-  type        = list(string)
-  default     = []
-}
-
 variable "managed_identity_object_id" {
   default = ""
 }
 
 variable "aks_subscription_id" {}
+
 
 #================================================================================================
 # Monitor Variables

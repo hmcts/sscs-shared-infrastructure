@@ -1,14 +1,24 @@
-/*
-resource "azurerm_storage_account" "sftp_storage" {
-  name                     = "sscssftp${var.env}"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  is_hns_enabled           = true
-  sftp_enabled             = true
-  tags                     = local.tags
-}*/
+locals {
+  private_endpoint_rg_name   = var.businessArea == "sds" ? "ss-${var.env}-network-rg" : "${var.businessArea}-${var.env}-network-rg"
+  private_endpoint_vnet_name = var.businessArea == "sds" ? "ss-${var.env}-vnet" : "${var.businessArea}-${var.env}-vnet"
+}
+
+# CFT only, on SDS remove this provider
+provider "azurerm" {
+  alias           = "private_endpoints"
+  subscription_id = var.aks_subscription_id
+  features {}
+  skip_provider_registration = true
+}
+
+data "azurerm_subnet" "private_endpoints" {
+  # CFT only you will need to provide an extra provider, uncomment the below line, on SDS remove this line and the next
+  provider = azurerm.private_endpoints
+
+  resource_group_name  = local.private_endpoint_rg_name
+  virtual_network_name = local.private_endpoint_vnet_name
+  name                 = "private-endpoints"
+}
 
 module "sftp_storage" {
   source = "git@github.com:hmcts/cnp-module-storage-account?ref=feature/sftp-support"
@@ -27,7 +37,7 @@ module "sftp_storage" {
     "Storage Blob Data Contributor"
   ]
 
-  sa_subnets = var.sftp_allowed_sa_subnets
+  private_endpoint_subnet_id = data.azurerm_subnet.private_endpoints.id
 
   team_name    = "SSCS Team"
   team_contact = "#sscs"
