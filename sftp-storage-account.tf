@@ -13,7 +13,7 @@ provider "azurerm" {
 
 data "azurerm_subnet" "private_endpoints" {
   # CFT only you will need to provide an extra provider, uncomment the below line, on SDS remove this line and the next
-  provier = azurerm.private_endpoints
+  provider = azurerm.private_endpoints
 
   resource_group_name  = local.private_endpoint_rg_name
   virtual_network_name = local.private_endpoint_vnet_name
