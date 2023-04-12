@@ -6,7 +6,7 @@ locals {
 # CFT only, on SDS remove this provider
 provider "azurerm" {
   alias           = "private_endpoints"
-  subscription_id = var.vnet_subscription_id
+  subscription_id = var.aks_subscription_id
   features {}
   skip_provider_registration = true
 }

@@ -61,12 +61,6 @@ variable "sftp_allowed_sa_subnets" {
   default     = []
 }
 
-variable "vnet_subscription_id" {
-  description = "Subscription containing the VNet to deploy private endpoints into"
-  type        = string
-  default     = ""
-}
-
 variable "aks_subscription_id" {}
 
 
