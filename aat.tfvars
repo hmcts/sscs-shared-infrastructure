@@ -65,3 +65,5 @@ sftp_allowed_sa_subnets = [
   // VPN Access
   "/subscriptions/ed302caf-ec27-4c64-a05e-85731c3ce90e/resourceGroups/rg-mgmt/providers/Microsoft.Network/virtualNetworks/core-infra-vnet-mgmt/subnets/sub-vpn-outside"
 ]
+
+vnet_subscription_id = "96c274ce-846d-4e48-89a7-d528432298a7" // DCD-CFTAPPS-STG
