@@ -1,5 +1,5 @@
 module "sftp_storage" {
-  source = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  source = "git@github.com:hmcts/cnp-module-storage-account?ref=fix/private-endpoint-provider"
   env                      = var.env
   storage_account_name     = "sscssftp${var.env}"
   resource_group_name      = azurerm_resource_group.rg.name
@@ -14,6 +14,10 @@ module "sftp_storage" {
   role_assignments = [
     "Storage Blob Data Contributor"
   ]
+
+  private_endpoint_subscription_id = var.aks_subscription_id
+  private_endpoint_subnet_id       = data.azurerm_subnet.private_endpoints.id
+  private_endpoint_rg_name         = local.private_endpoint_rg_name
 
   team_name    = "SSCS Team"
   team_contact = "#sscs"
