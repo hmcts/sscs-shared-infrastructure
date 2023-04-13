@@ -55,6 +55,12 @@ variable "managed_identity_object_id" {
   default = ""
 }
 
+variable "sftp_allowed_sa_subnets" {
+  description = "Subnets allowed to access storage account"
+  type        = list(string)
+  default     = []
+}
+
 variable "aks_subscription_id" {}
 
 
