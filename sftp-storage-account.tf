@@ -89,19 +89,19 @@ data "azurerm_subnet" "private_endpoints" {
 resource "azurerm_private_endpoint" "sftp_blob_endpoint" {
   provider = azurerm.private_endpoints
 
-  name = module.sftp_storage.storageaccount_id
+  name                = module.sftp_storage.storageaccount_id
   resource_group_name = local.private_endpoint_rg_name
-  location = var.location
-  subnet_id = data.azurerm_subnet.private_endpoints.id
+  location            = var.location
+  subnet_id           = data.azurerm_subnet.private_endpoints.id
 
   private_service_connection {
-    name = module.sftp_storage.storage_account_name
-    is_manual_connection = false
+    name                           = module.sftp_storage.storage_account_name
+    is_manual_connection           = false
     private_connection_resource_id = module.sftp_storage.storageaccount_id
-    subresource_names = ["blob"]
+    subresource_names              = ["blob"]
 
     private_dns_zone_group {
-      name = "endpoint-dnszonegroup"
+      name                 = "endpoint-dnszonegroup"
       private_dns_zone_ids = ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"]
     }
 
