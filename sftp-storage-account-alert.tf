@@ -1,6 +1,6 @@
 # Get log analytics workspace name.
 module "log_analytics_workspace" {
-  source      = "git::https://github.com/hmcts/terraform-module-log-analytics-workspace-id.git?ref=master"
+  source      = "git::https://github.com/hmcts/terraform-module-log-analytics-workspace-id?ref=master"
   environment = var.env
 }
 
