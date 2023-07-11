@@ -1,6 +1,6 @@
 # Create metric alert.
 module "metric-alert" {
-  depends_on          = [module.sscs-fail-action-group]
+  depends_on          = [module.sscs-fail-action-group, azurerm_monitor_diagnostic_setting.mds1, azurerm_monitor_diagnostic_setting.mds2]
   source              = "./modules/az_metric_alert"
   resourcegroup_name  = azurerm_resource_group.rg.name
   arm_deployment_name = "sscs-fail-alert-sscssftpprod-email"
