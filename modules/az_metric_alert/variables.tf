@@ -32,3 +32,7 @@ variable "scheduled_query_rules_name" {
 variable "storage_accounts_external_id" {
   description = "The id for the storage account to query"
 }
+variable "common_tags" {
+  description = "Resource tags"
+  type        = map(any)
+}

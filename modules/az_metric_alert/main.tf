@@ -18,6 +18,7 @@ resource "azurerm_resource_group_template_deployment" "metric-alert" {
     location                  = { value = var.location }
     scheduledQueryRulesName   = { value = var.scheduled_query_rules_name }
     storageAccountsExternalId = { value = var.storage_accounts_external_id }
+    commonTags                = { value = base64encode(jsonencode(var.common_tags))}
   })
 
 }

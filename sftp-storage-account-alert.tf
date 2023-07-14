@@ -15,5 +15,6 @@ module "metric-alert" {
   location                     = azurerm_resource_group.rg.location
   scheduled_query_rules_name   = "sscs-fail-alert-sscssftpprod-email"
   storage_accounts_external_id = "/subscriptions/${var.subscription}/resourceGroups/${azurerm_resource_group.rg.name}/providers/Microsoft.Storage/storageAccounts/${module.sftp_storage.storageaccount_name}"
+  common_tags                  = var.common_tags
 
 }
