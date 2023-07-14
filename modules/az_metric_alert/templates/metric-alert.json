@@ -1,0 +1,79 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "actionGroupsExternalId": {
+            "type": "string"
+        },
+        "alertDescription": {
+            "type": "string"
+        },
+        "alertEvaluationFrequency": {
+            "type": "string"
+        },
+        "alertQuery": {
+            "type": "string"
+        },
+        "alertSeverity": {
+            "type": "string"
+        },
+        "alertWindowSize": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "scheduledQueryRulesName": {
+            "type": "string"
+        },
+        "storageAccountsExternalId": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "microsoft.insights/scheduledqueryrules",
+            "apiVersion": "2022-06-15",
+            "name": "[parameters('scheduledQueryRulesName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "displayName": "[parameters('scheduledQueryRulesName')]",
+                "description": "[parameters('alertDescription')]",
+                "severity": "[parameters('alertSeverity')]",
+                "enabled": true,
+                "evaluationFrequency": "[parameters('alertEvaluationFrequency')]",
+                "scopes": [
+                    "[parameters('storageAccountsExternalId')]"
+                ],
+                "targetResourceTypes": [
+                    "Microsoft.Storage/storageAccounts"
+                ],
+                "windowSize": "[parameters('alertWindowSize')]",
+                "overrideQueryTimeRange": "P2D",
+                "criteria": {
+                    "allOf": [
+                        {
+                            "query": "[parameters('alertQuery')]",
+                            "timeAggregation": "Count",
+                            "dimensions": [],
+                            "operator": "GreaterThan",
+                            "threshold": 0,
+                            "failingPeriods": {
+                                "numberOfEvaluationPeriods": 1,
+                                "minFailingPeriodsToAlert": 1
+                            }
+                        }
+                    ]
+                },
+                "autoMitigate": false,
+                "actions": {
+                    "actionGroups": [
+                        "[parameters('actionGroupsExternalId')]"
+                    ],
+                    "customProperties": {},
+                    "actionProperties": {}
+                }
+            }
+        }
+    ]
+}
