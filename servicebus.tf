@@ -29,6 +29,7 @@ module "evidenceshare-topic" {
   requires_duplicate_detection            = true
   duplicate_detection_history_time_window = "PT1H"
   max_size_in_megabytes                   = 2048
+  max_message_size_in_kilobytes           = var.max_message_size_in_kilobytes
 }
   
 module "evidenceshare-subscription" {

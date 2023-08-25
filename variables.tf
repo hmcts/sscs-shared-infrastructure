@@ -73,3 +73,9 @@ variable "monitor_action_group" {
 variable "monitor_metric_alerts" {
   default = {}
 }
+
+variable "max_message_size_in_kilobytes" {
+  type        = string
+  description = "Integer value which controls the maximum size of a message allowed on the topic for Premium SKU"
+  default     = null
+}
