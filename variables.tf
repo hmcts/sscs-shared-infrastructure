@@ -15,12 +15,6 @@ variable "businessArea" {
   default = "cft"
 }
 
-variable "autoShutdown" {
-  type = map(string)
-  default = {
-    autoShutdown = "true"
-  }
-}
 
 variable "shutterPageDirectory" {
   default = "shutterPages"
