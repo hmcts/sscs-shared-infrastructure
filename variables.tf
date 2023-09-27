@@ -8,8 +8,10 @@ variable "env" {
 }
 
 variable "autoShutdown" {
-  description = "autoShutdown"
-  default = "true"
+  type = map(string)
+  default = {
+    autoShutdown = "true"
+  }
 }
 
 variable "location" {
@@ -52,8 +54,8 @@ variable "sftp_access_AAD_objectId" {
 
 variable "sftp_allowed_key_secrets" {
   description = "A list of names of public keys in the vault to allow access to"
-  type    = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "managed_identity_object_id" {
