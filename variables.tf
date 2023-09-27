@@ -7,13 +7,6 @@ variable "env" {
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
-variable "autoShutdown" {
-  type = map(string)
-  default = {
-    autoShutdown = "true"
-  }
-}
-
 variable "location" {
   default = "UK South"
 }
