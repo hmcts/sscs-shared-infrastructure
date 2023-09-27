@@ -21,7 +21,7 @@ data "azurerm_subnet" "private_endpoints" {
 }
 
 module "sftp_storage" {
-  source = "git@github.com:hmcts/cnp-module-storage-account?ref=fix/private-endpoint-provider"
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=fix/private-endpoint-provider"
   env                      = var.env
   storage_account_name     = "sscssftp${var.env}"
   resource_group_name      = azurerm_resource_group.rg.name
@@ -43,7 +43,7 @@ module "sftp_storage" {
 
   team_name    = "SSCS Team"
   team_contact = "#sscs"
-  common_tags  = merge(var.common_tags, var.autoShutdown)
+  common_tags  = var.common_tags
 }
 
 resource "azurerm_storage_container" "sftp_container" {
@@ -65,8 +65,8 @@ data "azurerm_key_vault_secret" "sftp_user_name" {
 
 #TODO: Replace this API call with azurerm_storage_account_local_user resource
 resource "azapi_resource" "add_local_user" {
-  type = "Microsoft.Storage/storageAccounts/localUsers@2021-09-01"
-  name = "${data.azurerm_key_vault_secret.sftp_user_name.value}"
+  type      = "Microsoft.Storage/storageAccounts/localUsers@2021-09-01"
+  name      = data.azurerm_key_vault_secret.sftp_user_name.value
   parent_id = module.sftp_storage.storageaccount_id
 
   body = jsonencode({
@@ -81,8 +81,8 @@ resource "azapi_resource" "add_local_user" {
       "hasSshPassword" : true,
       "sshAuthorizedKeys" : [
         for k in data.azurerm_key_vault_secret.sftp_user_keys : {
-          "description": k.name,
-          "key": k.value
+          "description" : k.name,
+          "key" : k.value
         }
       ],
       "homeDirectory" : "upload"
