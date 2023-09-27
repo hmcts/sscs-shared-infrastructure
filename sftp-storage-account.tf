@@ -31,7 +31,7 @@ module "sftp_storage" {
   account_replication_type = "LRS"
   enable_hns               = "true"
   enable_sftp              = "true"
-  
+
   managed_identity_object_id = var.sftp_access_AAD_objectId
   role_assignments = [
     "Storage Blob Data Contributor"
@@ -44,6 +44,7 @@ module "sftp_storage" {
   team_name    = "SSCS Team"
   team_contact = "#sscs"
   common_tags  = var.common_tags
+  tags         = var.autoShutdown
 }
 
 resource "azurerm_storage_container" "sftp_container" {

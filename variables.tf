@@ -7,6 +7,11 @@ variable "env" {
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
+variable "autoShutdown" {
+  description = "autoShutdown"
+  default = "true"
+}
+
 variable "location" {
   default = "UK South"
 }
