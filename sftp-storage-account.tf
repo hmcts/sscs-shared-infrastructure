@@ -43,7 +43,7 @@ module "sftp_storage" {
 
   team_name    = "SSCS Team"
   team_contact = "#sscs"
-  common_tags  = merge(var.common_tags, var.autoShutdown)
+  common_tags  = var.common_tags
 }
 
 resource "azurerm_storage_container" "sftp_container" {

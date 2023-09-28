@@ -8,10 +8,8 @@ variable "env" {
 }
 
 variable "autoShutdown" {
-  type = map(string)
-  default = {
-    autoShutdown = "true"
-  }
+  type = string
+  description = "auto shutdown"
 }
 
 variable "location" {

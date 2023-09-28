@@ -12,6 +12,7 @@ provider "azurerm" {
 locals {
   tags = (merge(
     var.common_tags,
+    var.autoShutdown,
     tomap({
       "Team Contact" = "#sscs"
       "Team Name"    = "SSCS Team"
