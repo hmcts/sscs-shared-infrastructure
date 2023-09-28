@@ -3,8 +3,9 @@ tribunals_frontend_external_hostname = "sscs-tribunals-frontend-aat.service.core
 external_cert_vault_uri               = "https://infra-vault-nonprod.vault.azure.net/"
 tribunals_frontend_external_cert_name = "core-compute-aat"
 
-autoShutdown = "true"
-
+autoShutdown = {
+  "autoShutdown" = "true"
+}
 #================================================================================================
 # Azure Monitor
 #================================================================================================
