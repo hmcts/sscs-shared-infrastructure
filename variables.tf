@@ -8,7 +8,7 @@ variable "env" {
 }
 
 variable "autoShutdown" {
-  type = string
+  type        = map(string)
   description = "auto shutdown"
 }
 
