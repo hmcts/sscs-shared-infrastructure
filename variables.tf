@@ -8,7 +8,7 @@ variable "env" {
 }
 
 variable "autoShutdown" {
-  type        = map(string)
+  type        = string
   description = "auto shutdown"
 }
 
@@ -30,7 +30,11 @@ variable "subscription" {}
 // TAG SPECIFIC VARIABLES
 variable "common_tags" {
   type = map(string)
+  default = {
+    autoShutdown = var.autoShutdown
+  }
 }
+
 
 variable "tribunals_frontend_external_cert_name" {}
 
