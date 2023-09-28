@@ -52,7 +52,7 @@ sftp_allowed_key_secrets = ["sftp-user-pub-key"]
 sftp_access_AAD_objectId = "aa694620-518d-44a4-b494-0f8fe298f2b0" // dcd_sscs
 
 sftp_allowed_sa_subnets = [
-   // Jenkins agents
+  // Jenkins agents
   "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-ptl-network-rg/providers/Microsoft.Network/virtualNetworks/cft-ptl-vnet/subnets/iaas",
   "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-ptl-network-rg/providers/Microsoft.Network/virtualNetworks/cft-ptl-vnet/subnets/aks-00",
   "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/cft-ptl-network-rg/providers/Microsoft.Network/virtualNetworks/cft-ptl-vnet/subnets/aks-01",
@@ -66,4 +66,4 @@ sftp_allowed_sa_subnets = [
   "/subscriptions/ed302caf-ec27-4c64-a05e-85731c3ce90e/resourceGroups/rg-mgmt/providers/Microsoft.Network/virtualNetworks/core-infra-vnet-mgmt/subnets/sub-vpn-outside"
 ]
 
-autoShutdown = "autoShutdown"
+autoShutdown = "true"
