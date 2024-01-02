@@ -8,7 +8,7 @@ variable "env" {
 }
 
 variable "location" {
-  default = "UK South"
+  default = "uksouth"
 }
 
 variable "businessArea" {
