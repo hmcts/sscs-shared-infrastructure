@@ -1,7 +1,7 @@
 module "sscs-fail-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.location
+  app_insights_name = "${var.product}-${var.env}"
 
   alert_name                 = "sscs-fail-alert"
   alert_desc                 = "Triggers when an SSCS exception is received in a 5 minute poll."
@@ -15,12 +15,13 @@ module "sscs-fail-alert" {
   trigger_threshold          = "0"
   resourcegroup_name         = azurerm_resource_group.rg.name
   common_tags                = var.common_tags
+  depends_on                 = [module.application_insights]
 }
 
 module "sscs-sya-submit-fail-alert" {
   source            = "git@github.com:hmcts/cnp-module-metric-alert"
-  location          = azurerm_application_insights.appinsights.location
-  app_insights_name = azurerm_application_insights.appinsights.name
+  location          = var.location
+  app_insights_name = "${var.product}-${var.env}"
 
   alert_name                 = "sscs-sya-submit-fail"
   alert_desc                 = "Triggers when SYA has multiple Appeal submission fails."
@@ -34,6 +35,7 @@ module "sscs-sya-submit-fail-alert" {
   trigger_threshold          = "1"
   resourcegroup_name         = azurerm_resource_group.rg.name
   common_tags                = var.common_tags
+  depends_on                 = [module.application_insights]
 }
 
 resource "azurerm_monitor_metric_alert" "alerts" {
