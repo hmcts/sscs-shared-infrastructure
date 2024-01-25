@@ -6,7 +6,7 @@ module "metric-alert" {
   arm_deployment_name = "sscs-fail-alert-sscssftp-email"
 
   # ARM parameters
-  action_groups_external_id    = "/subscriptions/${module.log_analytics_workspace.subscription_id}/resourceGroups/${azurerm_resource_group.rg.name}/providers/microsoft.insights/actionGroups/${module.sscs-fail-action-group.action_group_name}"
+  action_groups_external_id    = "/subscriptions/${var.subscription}/resourceGroups/${azurerm_resource_group.rg.name}/providers/microsoft.insights/actionGroups/${module.sscs-fail-action-group.action_group_name}"
   alert_description            = "The following storage account / blob has been updated:\n\n'sscssftpprod\\upload\\incoming\\failed'"
   alert_evaluation_frequency   = "PT5M"
   alert_query                  = "StorageBlobLogs | where TimeGenerated > ago(5m) | where OperationName == 'PutBlob' | where ObjectKey has \"upload/incoming/failed\""
@@ -14,7 +14,7 @@ module "metric-alert" {
   alert_window_size            = "PT5M"
   location                     = azurerm_resource_group.rg.location
   scheduled_query_rules_name   = "sscs-fail-alert-sscssftp-email"
-  storage_accounts_external_id = "/subscriptions/${module.log_analytics_workspace.subscription_id}/resourceGroups/${azurerm_resource_group.rg.name}/providers/Microsoft.Storage/storageAccounts/${module.sftp_storage.storageaccount_name}"
+  storage_accounts_external_id = "/subscriptions/${var.subscription}/resourceGroups/${azurerm_resource_group.rg.name}/providers/Microsoft.Storage/storageAccounts/${module.sftp_storage.storageaccount_name}"
   common_tags                  = var.common_tags
 
 }
