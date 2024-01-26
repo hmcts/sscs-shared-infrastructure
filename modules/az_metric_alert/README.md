@@ -1,5 +1,4 @@
 A module that lets you create custom query alerts against a storage account.
-TESTING
 ## Variables
 
 ### Configuration
