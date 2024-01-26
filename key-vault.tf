@@ -1,5 +1,5 @@
 module "sscs-vault" {
-  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=jh-testing"
+  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                    = "sscs-${var.env}"
   product                 = var.product
   env                     = var.env
