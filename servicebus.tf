@@ -10,15 +10,16 @@ module "servicebus-namespace" {
   providers = {
     azurerm.private_endpoint = azurerm.private_endpoint
   }
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=adding-premium-messaging-partitions"
-  name                = local.servicebus_namespace_name
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  env                 = var.env
-  common_tags         = local.tags
-  sku                 = "Premium"
-  zone_redundant      = true
-  capacity            = 1
+  source                       = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=adding-premium-messaging-partitions"
+  name                         = local.servicebus_namespace_name
+  location                     = var.location
+  resource_group_name          = azurerm_resource_group.rg.name
+  env                          = var.env
+  common_tags                  = local.tags
+  sku                          = "Premium"
+  zone_redundant               = true
+  capacity                     = 1
+  premium_messaging_partitions = 2
 }
 
 module "evidenceshare-topic" {
@@ -31,7 +32,7 @@ module "evidenceshare-topic" {
   max_size_in_megabytes                   = 2048
   max_message_size_in_kilobytes           = var.max_message_size_in_kilobytes
 }
-  
+
 module "evidenceshare-subscription" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                = local.evidenceshare_subscription_name
@@ -83,7 +84,7 @@ resource "azurerm_key_vault_secret" "servicebus_primary_connection_string" {
     "source" : "Service Bus ${module.servicebus-namespace.name}"
   })
 }
-    
+
 output "evidence_share_topic_primary_shared_access_key" {
   value     = module.evidenceshare-topic.primary_send_and_listen_shared_access_key
   sensitive = true
