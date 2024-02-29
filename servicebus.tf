@@ -16,8 +16,8 @@ module "servicebus-namespace" {
   resource_group_name = azurerm_resource_group.rg.name
   env                 = var.env
   common_tags         = local.tags
-  sku                 = var.sku
-  zone_redundant      = (var.sku != "Premium" ? "false" : "true")
+  sku                 = "Premium"
+  zone_redundant      = true
   capacity            = 1
 }
 

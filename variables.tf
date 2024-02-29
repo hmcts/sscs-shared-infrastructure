@@ -79,9 +79,3 @@ variable "max_message_size_in_kilobytes" {
   description = "Integer value which controls the maximum size of a message allowed on the topic for Premium SKU"
   default     = null
 }
-
-variable "sku" {
-  type        = string
-  default     = "Premium"
-  description = "SKU type(Basic, Standard and Premium)"
-}
