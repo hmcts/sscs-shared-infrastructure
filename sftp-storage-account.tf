@@ -1,6 +1,7 @@
 locals {
   private_endpoint_rg_name   = var.businessArea == "sds" ? "ss-${var.env}-network-rg" : "${var.businessArea}-${var.env}-network-rg"
   private_endpoint_vnet_name = var.businessArea == "sds" ? "ss-${var.env}-vnet" : "${var.businessArea}-${var.env}-vnet"
+  ip_rules_list              = split(",", data.azurerm_key_vault_secret.ip_rules.value)
 }
 
 # CFT only, on SDS remove this provider
@@ -19,6 +20,12 @@ data "azurerm_subnet" "private_endpoints" {
   virtual_network_name = local.private_endpoint_vnet_name
   name                 = "private-endpoints"
 }
+
+data "azurerm_key_vault_secret" "ip_rules" {
+  name         = "sftp-ip-rules"
+  key_vault_id = module.sscs-vault.key_vault_id
+}
+
 
 module "sftp_storage" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=fix/private-endpoint-provider"
@@ -44,6 +51,7 @@ module "sftp_storage" {
   team_name    = "SSCS Team"
   team_contact = "#sscs"
   common_tags  = var.common_tags
+  ip_rules     = local.ip_rules_list
 }
 
 resource "azurerm_storage_container" "sftp_container" {
