@@ -7,6 +7,7 @@ module "application_insights" {
   name                = var.product
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
+  alert_limit_reached = true
 
   common_tags = local.tags
 }
