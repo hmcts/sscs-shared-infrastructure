@@ -1,7 +1,7 @@
 # Create metric alert.
 
 locals {
-  subscription_id = var.env == "ithc" ? "7a4e3bd5-ae3a-4d0c-b441-2188fee3ff1c" : module.log_analytics_workspace.subscription_id
+  subscription_id = var.env == "ithc" || var.env == "perftest" ? "7a4e3bd5-ae3a-4d0c-b441-2188fee3ff1c" : module.log_analytics_workspace.subscription_id
 }
 
 module "metric-alert" {
