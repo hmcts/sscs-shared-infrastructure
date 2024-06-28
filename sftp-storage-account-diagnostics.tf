@@ -36,14 +36,14 @@ resource "azurerm_monitor_diagnostic_setting" "mds2" {
   }
   log {
     category = "StorageWrite"
-    enabled = true
+    enabled  = true
     retention_policy {
       enabled = true
     }
   }
   log {
     category = "StorageDelete"
-    enabled =true
+    enabled  = true
     retention_policy {
       enabled = true
     }
