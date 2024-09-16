@@ -18,9 +18,9 @@ module "servicebus-namespace" {
   resource_group_name = azurerm_resource_group.rg.name
   env                 = var.env
   common_tags         = local.tags
-  sku                 = "Premium"
-  zone_redundant      = true
-  capacity            = 1
+  sku                 = var.service_bus_sku
+  zone_redundant      = var.zone_redundant
+  capacity            = var.capacity
 }
 
 module "evidenceshare-topic" {
@@ -32,6 +32,7 @@ module "evidenceshare-topic" {
   duplicate_detection_history_time_window = "PT1H"
   max_size_in_megabytes                   = 2048
   max_message_size_in_kilobytes           = var.max_message_size_in_kilobytes
+  depends_on                              = [module.servicebus-namespace]
 }
 
 module "evidenceshare-subscription" {
@@ -111,6 +112,7 @@ module "correspondence-topic" {
   duplicate_detection_history_time_window = "PT1H"
   max_size_in_megabytes                   = 2048
   max_message_size_in_kilobytes           = var.max_message_size_in_kilobytes
+  depends_on                              = [module.servicebus-namespace]
 }
 
 module "correspondence-subscription" {

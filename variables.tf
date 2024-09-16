@@ -79,3 +79,16 @@ variable "max_message_size_in_kilobytes" {
   description = "Integer value which controls the maximum size of a message allowed on the topic for Premium SKU"
   default     = null
 }
+
+variable "service_bus_sku" {
+  default     = "Standard"
+  description = "The SKU of service bus to use. Possible values are `Standard` and `Premium`."
+}
+
+variable "capacity" {
+  default = 0
+}
+
+variable "zone_redundant" {
+  default     = false
+}
