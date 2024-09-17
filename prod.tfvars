@@ -65,3 +65,9 @@ sftp_allowed_sa_subnets = [
 ]
 
 max_message_size_in_kilobytes = 2048
+
+service_bus_sku = "Premium"
+
+capacity = 1
+
+zone_redundant = true
