@@ -3,7 +3,6 @@ locals {
   correspondence_topic_name        = "${var.product}-correspondence-topic-${var.env}"
   correspondence_subscription_name = "${var.product}-correspondence-subscription-${var.env}"
   evidenceshare_subscription_name  = "${var.product}-evidenceshare-subscription-${var.env}"
-  notifications_subscription_name  = "${var.product}-notifications-subscription-${var.env}"
   servicebus_namespace_name        = "${var.product}-servicebus-${var.env}"
   resource_group_name              = azurerm_resource_group.rg.name
 }
@@ -45,15 +44,6 @@ module "evidenceshare-subscription" {
   depends_on = [module.evidenceshare-topic]
 }
 
-module "notifications-subscription" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
-  name                = local.notifications_subscription_name
-  namespace_name      = local.servicebus_namespace_name
-  resource_group_name = local.resource_group_name
-  topic_name          = local.evidenceshare_topic_name
-
-  depends_on = [module.evidenceshare-topic]
-}
 
 output "sb_primary_send_and_listen_shared_access_key" {
   value     = module.servicebus-namespace.primary_send_and_listen_shared_access_key
