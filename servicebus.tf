@@ -29,7 +29,7 @@ module "evidenceshare-topic" {
   resource_group_name                     = local.resource_group_name
   requires_duplicate_detection            = true
   duplicate_detection_history_time_window = "PT1H"
-  max_size_in_megabytes                   = 2048
+  max_size_in_megabytes                   = 3072
   max_message_size_in_kilobytes           = var.max_message_size_in_kilobytes
   depends_on                              = [module.servicebus-namespace]
 }
