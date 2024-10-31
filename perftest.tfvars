@@ -7,11 +7,12 @@ tribunals_frontend_external_cert_name = "wildcard-perftest-platform-hmcts-net"
 # Azure Monitor
 #================================================================================================
 monitor_action_group = {
-  "sscs-perftest-dead-letter" = {
-    short_name = "sscsDeadLet"
+  "sscs-ci-slack-alert" = {
+    short_name        = "sscsci"
+    email_secret_name = "sscs-ci-slack-alert"
     email_receiver = [
       {
-        email_receiver_name = "SSCS Alerts"
+        email_receiver_name = "SSCS CI Alerts"
       }
     ]
   }
@@ -40,7 +41,7 @@ monitor_metric_alerts = {
     ]
     action = [
       {
-        action_group_name = "sscs-perftest-dead-letter"
+        action_group_name = "sscs-ci-slack-alert"
       }
     ]
   }

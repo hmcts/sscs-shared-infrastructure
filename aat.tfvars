@@ -8,11 +8,12 @@ tribunals_frontend_external_cert_name = "core-compute-aat"
 # Azure Monitor
 #================================================================================================
 monitor_action_group = {
-  "sscs-aat-dead-letter" = {
-    short_name = "sscsDeadLet"
+  "sscs-ci-slack-alert" = {
+    short_name        = "sscsci"
+    email_secret_name = "sscs-ci-slack-alert"
     email_receiver = [
       {
-        email_receiver_name = "SSCS Alerts"
+        email_receiver_name = "SSCS CI Alerts"
       }
     ]
   }
@@ -42,7 +43,33 @@ monitor_metric_alerts = {
     ]
     action = [
       {
-        action_group_name = "sscs-aat-dead-letter"
+        action_group_name = "sscs-ci-slack-alert"
+      }
+    ]
+  }
+  "sscs-aat-inflight-messages-alert" = {
+    window_size = "PT5M"
+    frequency   = "PT5M"
+    criteria = [
+      {
+        metric_namespace       = "Microsoft.ServiceBus/namespaces"
+        metric_name            = "ActiveMessages"
+        aggregation            = "Average"
+        operator               = "GreaterThan"
+        threshold              = 200
+        skip_metric_validation = false
+        dimension = [
+          {
+            name     = "EntityName"
+            operator = "Include"
+            values   = ["sscs-evidenceshare-topic-aat"]
+          }
+        ]
+      }
+    ]
+    action = [
+      {
+        action_group_name = "sscs-ci-slack-alert"
       }
     ]
   }
