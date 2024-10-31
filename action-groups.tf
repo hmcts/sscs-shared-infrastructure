@@ -53,3 +53,20 @@ resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
 
   tags = local.tags
 }
+
+data "azurerm_key_vault_secret" "sscs_ci_slack_alert_secret" {
+  name         = "sscs-ci-slack-alert"
+  key_vault_id = module.sscs-vault.key_vault_id
+}
+
+module "sscs-ci-slack-action-group" {
+  source   = "git@github.com:hmcts/cnp-module-action-group"
+  location = "global"
+  env      = var.env
+
+  resourcegroup_name     = azurerm_resource_group.rg.name
+  action_group_name      = "SSCS CI Slack - ${var.env}"
+  short_name             = "SSCSCI_alert"
+  email_receiver_name    = "SSCSCI Alerts"
+  email_receiver_address = data.azurerm_key_vault_secret.sscs_ci_slack_alert_secret.value
+}

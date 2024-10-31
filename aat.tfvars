@@ -42,7 +42,33 @@ monitor_metric_alerts = {
     ]
     action = [
       {
-        action_group_name = "sscs-aat-dead-letter"
+        module_name = "sscs-ci-slack-action-group"
+      }
+    ]
+  }
+  "sscs-aat-inflight-messages-alert" = {
+    window_size = "PT5M"
+    frequency   = "PT5M"
+    criteria = [
+      {
+        metric_namespace       = "Microsoft.ServiceBus/namespaces"
+        metric_name            = "ActiveMessages"
+        aggregation            = "Total"
+        operator               = "GreaterThan"
+        threshold              = 100
+        skip_metric_validation = false
+        dimension = [
+          {
+            name     = "EntityName"
+            operator = "Include"
+            values   = ["sscs-evidenceshare-topic-aat"]
+          }
+        ]
+      }
+    ]
+    action = [
+      {
+        module_name = "sscs-ci-slack-action-group"
       }
     ]
   }

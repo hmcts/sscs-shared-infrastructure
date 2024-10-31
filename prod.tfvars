@@ -40,10 +40,37 @@ monitor_metric_alerts = {
     ]
     action = [
       {
-        action_group_name = "sscs-prod-dead-letter"
+        module_name = "sscs-ci-slack-action-group"
       }
     ]
   }
+  "sscs-prod-inflight-messages-alert" = {
+    window_size = "PT5M"
+    frequency   = "PT5M"
+    criteria = [
+      {
+        metric_namespace       = "Microsoft.ServiceBus/namespaces"
+        metric_name            = "ActiveMessages"
+        aggregation            = "Total"
+        operator               = "GreaterThan"
+        threshold              = 100
+        skip_metric_validation = false
+        dimension = [
+          {
+            name     = "EntityName"
+            operator = "Include"
+            values   = ["sscs-evidenceshare-topic-prod"]
+          }
+        ]
+      }
+    ]
+    action = [
+      {
+        module_name = "sscs-ci-slack-action-group"
+      }
+    ]
+  }
+
 }
 
 sftp_allowed_key_secrets = ["sftp-user-pub-key", "sftp-gaps2-pub-key"]

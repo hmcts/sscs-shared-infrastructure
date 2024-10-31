@@ -41,7 +41,7 @@ monitor_metric_alerts = {
     ]
     action = [
       {
-        action_group_name = "sscs-demo-dead-letter"
+        module_name = "sscs-ci-slack-action-group"
       }
     ]
   }
