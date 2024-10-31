@@ -66,11 +66,12 @@ resource "azurerm_monitor_metric_alert" "alerts" {
       }
     }
   }
-  # Dynamic action block to reference the action group
+
+  # Dynamic block for action
   dynamic "action" {
     for_each = try(each.value.action, [])
     content {
-      action_group_id = each.value.action_group_id
+      action_group_id = azurerm_monitor_action_group.scs-dead-letter-action-group[each.value.action_group_name].id  # Reference the action group
     }
   }
 
