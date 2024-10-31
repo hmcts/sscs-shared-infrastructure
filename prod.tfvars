@@ -52,7 +52,7 @@ monitor_metric_alerts = {
       {
         metric_namespace       = "Microsoft.ServiceBus/namespaces"
         metric_name            = "ActiveMessages"
-        aggregation            = "Total"
+        aggregation            = "Average"
         operator               = "GreaterThan"
         threshold              = 100
         skip_metric_validation = false
