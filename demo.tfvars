@@ -41,7 +41,7 @@ monitor_metric_alerts = {
     ]
     action = [
       {
-        module_name = "sscs-ci-slack-action-group"
+        action_group_id = module.sscs_ci_slack_action_group.action_group_id
       }
     ]
   }

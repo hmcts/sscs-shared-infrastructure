@@ -66,12 +66,11 @@ resource "azurerm_monitor_metric_alert" "alerts" {
       }
     }
   }
-
-  # Dynamic block for action
+  # Dynamic action block to reference the action group
   dynamic "action" {
     for_each = try(each.value.action, [])
     content {
-      action_group_id = module[try(action.value.module_name, null)].action_group_id
+      action_group_id = each.value.action_group_id
     }
   }
 
