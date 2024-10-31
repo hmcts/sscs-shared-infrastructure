@@ -8,7 +8,7 @@ tribunals_frontend_external_cert_name = "wildcard-ithc-platform-hmcts-net"
 #================================================================================================
 monitor_action_group = {
   "sscs-ci-slack-alert" = {
-    short_name = "sscsci"
+    short_name        = "sscsci"
     email_secret_name = "sscs-ci-slack-alert"
     email_receiver = [
       {

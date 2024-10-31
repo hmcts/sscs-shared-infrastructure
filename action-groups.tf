@@ -30,7 +30,7 @@ module "sscs-fail-action-group-slack" {
 data "azurerm_key_vault_secret" "sscs_alert_email_secret" {
   for_each = var.monitor_action_group
 
-  name         = each.value.email_secret_name  # Use the dynamic secret name
+  name         = each.value.email_secret_name # Use the dynamic secret name
   key_vault_id = module.sscs-vault.key_vault_id
 }
 

@@ -71,7 +71,7 @@ resource "azurerm_monitor_metric_alert" "alerts" {
   dynamic "action" {
     for_each = try(each.value.action, [])
     content {
-      action_group_id = azurerm_monitor_action_group.scs-dead-letter-action-group[each.value.action_group_name].id  # Reference the action group
+      action_group_id = azurerm_monitor_action_group.scs-dead-letter-action-group[each.value.action_group_name].id # Reference the action group
     }
   }
 
