@@ -35,7 +35,7 @@ data "azurerm_key_vault_secret" "sscs_alert_email_secret" {
 }
 
 
-resource "azurerm_monitor_action_group" "scs-dead-letter-action-group" {
+resource "azurerm_monitor_action_group" "sscs-action-group" {
   for_each = var.monitor_action_group
 
   name                = each.key
