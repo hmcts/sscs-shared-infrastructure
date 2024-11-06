@@ -67,5 +67,13 @@ resource "azurerm_monitor_metric_alert" "alerts" {
     }
   }
 
+  # Dynamic block for action
+  dynamic "action" {
+    for_each = try(each.value.action, [])
+    content {
+      action_group_id = azurerm_monitor_action_group.sscs-action-group[action.value.action_group_name].id # Reference the action group
+    }
+  }
+
   tags = local.tags
 }
