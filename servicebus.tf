@@ -146,7 +146,7 @@ resource "azurerm_servicebus_subscription_rule" "topic_filter_rule_sscs" {
   }
 }
 
-resource "azurerm_servicebus_subscription_rule" "topic_filter_rule_sscs" {
+resource "azurerm_servicebus_subscription_rule" "topic_deployment_filter_rule_sscs" {
   name            = "hmc-servicebus-${var.env}-subscription-rule-deployment"
   subscription_id = module.servicebus-subscription.id
   filter_type     = "CorrelationFilter"
