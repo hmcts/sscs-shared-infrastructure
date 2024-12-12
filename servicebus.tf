@@ -146,6 +146,20 @@ resource "azurerm_servicebus_subscription_rule" "topic_filter_rule_sscs" {
   }
 }
 
+resource "azurerm_servicebus_subscription_rule" "topic_filter_rule_sscs" {
+  name            = "hmc-servicebus-${var.env}-subscription-rule-deployment"
+  subscription_id = module.servicebus-subscription.id
+  filter_type     = "CorrelationFilter"
+  count           = var.hearings_deployment_id != "" ? 1 : 0
+
+  correlation_filter {
+    properties = {
+      hmctsDeploymentId = var.hearings_deployment_id
+    }
+  }
+}
+
+
 data "azurerm_key_vault" "hmc-key-vault" {
   name                = "hmc-${var.env}"
   resource_group_name = "hmc-shared-${var.env}"

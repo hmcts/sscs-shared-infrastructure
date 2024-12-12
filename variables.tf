@@ -92,3 +92,7 @@ variable "capacity" {
 variable "zone_redundant" {
   default = false
 }
+
+variable "hearings_deployment_id" {
+  default = ""
+}
