@@ -93,4 +93,4 @@ sftp_allowed_sa_subnets = [
   "/subscriptions/ed302caf-ec27-4c64-a05e-85731c3ce90e/resourceGroups/rg-mgmt/providers/Microsoft.Network/virtualNetworks/core-infra-vnet-mgmt/subnets/sub-vpn-outside"
 ]
 
-hearings_deployment_id = null
+// hearings_deployment_id = "deployment-sscs-tribunals-api-aat"
