@@ -11,18 +11,19 @@ module "servicebus-namespace" {
   providers = {
     azurerm.private_endpoint = azurerm.private_endpoint
   }
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=4.x"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
   name                = local.servicebus_namespace_name
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   env                 = var.env
   common_tags         = local.tags
   sku                 = var.service_bus_sku
+  zone_redundant      = var.zone_redundant
   capacity            = var.capacity
 }
 
 module "evidenceshare-topic" {
-  source                                  = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=4.x"
+  source                                  = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                                    = local.evidenceshare_topic_name
   namespace_name                          = local.servicebus_namespace_name
   resource_group_name                     = local.resource_group_name
@@ -34,10 +35,11 @@ module "evidenceshare-topic" {
 }
 
 module "evidenceshare-subscription" {
-  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
-  name         = local.evidenceshare_subscription_name
-  namespace_id = module.servicebus-namespace.id
-  topic_name   = local.evidenceshare_topic_name
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  name                = local.evidenceshare_subscription_name
+  namespace_name      = local.servicebus_namespace_name
+  resource_group_name = local.resource_group_name
+  topic_name          = local.evidenceshare_topic_name
 
   depends_on = [module.evidenceshare-topic]
 }
@@ -92,7 +94,7 @@ resource "azurerm_key_vault_secret" "evidence_share_topic_primary_shared_access_
 }
 
 module "correspondence-topic" {
-  source                                  = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=4.x"
+  source                                  = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                                    = local.correspondence_topic_name
   namespace_name                          = local.servicebus_namespace_name
   resource_group_name                     = local.resource_group_name
@@ -104,10 +106,11 @@ module "correspondence-topic" {
 }
 
 module "correspondence-subscription" {
-  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
-  name         = local.correspondence_subscription_name
-  namespace_id = module.servicebus-namespace.id
-  topic_name   = local.correspondence_topic_name
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  name                = local.correspondence_subscription_name
+  namespace_name      = local.servicebus_namespace_name
+  resource_group_name = local.resource_group_name
+  topic_name          = local.correspondence_topic_name
 
   depends_on = [module.correspondence-topic]
 }
@@ -123,16 +126,12 @@ resource "azurerm_key_vault_secret" "correspondence_topic_primary_shared_access_
   })
 }
 
-data "azurerm_servicebus_namespace" "hmc_servicebus_namespace" {
-  name                = join("-", ["hmc-servicebus", var.env])
-  resource_group_name = join("-", ["hmc-shared", var.env])
-}
-
 module "servicebus-subscription" {
-  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
-  name         = "hmc-to-sscs-subscription-${var.env}"
-  namespace_id = data.azurerm_servicebus_namespace.hmc_servicebus_namespace.id
-  topic_name   = "hmc-to-cft-${var.env}"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  name                = "hmc-to-sscs-subscription-${var.env}"
+  namespace_name      = "hmc-servicebus-${var.env}"
+  topic_name          = "hmc-to-cft-${var.env}"
+  resource_group_name = "hmc-shared-${var.env}"
 }
 
 resource "azurerm_servicebus_subscription_rule" "topic_filter_rule_sscs" {
