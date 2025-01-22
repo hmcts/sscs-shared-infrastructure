@@ -152,11 +152,7 @@ resource "azurerm_servicebus_subscription_rule" "topic_deployment_filter_rule_ss
   filter_type     = "CorrelationFilter"
   count           = var.hearings_deployment_id != "" ? 1 : 0
 
-  correlation_filter {
-    properties = {
-      hmctsDeploymentId = var.hearings_deployment_id
-    }
-  }
+  sql_filter = "hmctsDeploymentId IS NULL"
 }
 
 
