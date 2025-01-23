@@ -27,23 +27,20 @@ resource "azurerm_monitor_diagnostic_setting" "mds2" {
   name                       = "diag-storageaccountblob"
   target_resource_id         = "${module.sftp_storage.storageaccount_id}/blobServices/default/"
   log_analytics_workspace_id = module.log_analytics_workspace.workspace_id
-  log {
+  enabled_log {
     category = "StorageRead"
-    enabled  = true
     retention_policy {
       enabled = true
     }
   }
-  log {
+  enabled_log {
     category = "StorageWrite"
-    enabled  = true
     retention_policy {
       enabled = true
     }
   }
-  log {
+  enabled_log {
     category = "StorageDelete"
-    enabled  = true
     retention_policy {
       enabled = true
     }
