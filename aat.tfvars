@@ -94,3 +94,9 @@ sftp_allowed_sa_subnets = [
 ]
 
 hearings_deployment_id = "deployment-sscs-tribunals-api-aat"
+
+service_bus_sku = "Premium"
+
+capacity = 1
+
+zone_redundant = true
