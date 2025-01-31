@@ -94,3 +94,11 @@ sftp_allowed_sa_subnets = [
 ]
 
 hearings_deployment_id = "deployment-sscs-tribunals-api-aat"
+
+max_message_size_in_kilobytes = 10240
+
+service_bus_sku = "Premium"
+
+capacity = 1
+
+zone_redundant = true
