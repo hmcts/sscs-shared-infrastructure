@@ -34,7 +34,7 @@ module "evidenceshare-topic" {
 }
 
 module "evidenceshare-subscription" {
-  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
+  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
   name         = local.evidenceshare_subscription_name
   namespace_id = module.servicebus-namespace.id
   topic_name   = local.evidenceshare_topic_name
