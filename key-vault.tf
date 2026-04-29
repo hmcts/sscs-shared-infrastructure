@@ -11,6 +11,7 @@ module "sscs-vault" {
   location                = var.location
 
   create_managed_identity = true
+  jenkins_object_id       = data.azurerm_user_assigned_identity.jenkins.principal_id
 }
 
 output "vaultName" {
