@@ -7,6 +7,7 @@ module "sscs-fail-action-group" {
   source   = "git@github.com:hmcts/cnp-module-action-group"
   location = "global"
   env      = var.env
+  tags     = local.tags
 
   resourcegroup_name     = azurerm_resource_group.rg.name
   action_group_name      = "SSCS Fail Alert - ${var.env}"
@@ -19,6 +20,7 @@ module "sscs-fail-action-group-slack" {
   source   = "git@github.com:hmcts/cnp-module-action-group"
   location = "global"
   env      = var.env
+  tags     = local.tags
 
   resourcegroup_name     = azurerm_resource_group.rg.name
   action_group_name      = "SSCS Fail Slack Alert - ${var.env}"
