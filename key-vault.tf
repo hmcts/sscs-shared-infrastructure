@@ -1,5 +1,5 @@
 module "sscs-vault" {
-  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=DTSPO-31965/remove-jenkins-ptl-access"
   name                    = "sscs-${var.env}"
   product                 = var.product
   env                     = var.env
@@ -12,6 +12,9 @@ module "sscs-vault" {
 
   create_managed_identity = true
   jenkins_object_id       = data.azurerm_user_assigned_identity.jenkins.principal_id
+  
+  # CFT only: allows preview pipelines to read from the AAT vault
+  grant_preview_jenkins_access = var.env == "aat"
 }
 
 output "vaultName" {
