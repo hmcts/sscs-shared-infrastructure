@@ -10,7 +10,7 @@ module "application_insights" {
   alert_limit_reached = true
 
   common_tags = local.tags
-  
+
   # Capture full telemetry on the lower environments used for diagnosis (aat)
   # so failures (failed requests, 5xx, exceptions) are not dropped by the module's default
   # non-prod ingestion sampling of 1%, which blocks diagnosis. Remaining environments keep the
