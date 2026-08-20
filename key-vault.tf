@@ -12,7 +12,7 @@ module "sscs-vault" {
 
   create_managed_identity = true
   jenkins_object_id       = data.azurerm_user_assigned_identity.jenkins.principal_id
-  
+
   # CFT only: allows preview pipelines to read from the AAT vault
   grant_preview_jenkins_access = var.env == "aat"
 }
