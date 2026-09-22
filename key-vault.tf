@@ -1,5 +1,5 @@
 module "sscs-vault" {
-  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=DTSPO-31965/remove-jenkins-ptl-access"
+  source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                    = "sscs-${var.env}"
   product                 = var.product
   env                     = var.env
