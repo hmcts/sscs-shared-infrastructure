@@ -99,3 +99,5 @@ service_bus_sku = "Premium"
 capacity = 1
 
 zone_redundant = true
+
+enable_soft_delete = true

@@ -96,3 +96,7 @@ variable "zone_redundant" {
 variable "hearings_deployment_id" {
   default = ""
 }
+
+variable "enable_soft_delete" {
+  default = false
+}
