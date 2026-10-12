@@ -38,6 +38,7 @@ module "sftp_storage" {
   account_replication_type = "LRS"
   enable_hns               = "true"
   enable_sftp              = "true"
+  enable_soft_delete       = var.enable_soft_delete
 
   managed_identity_object_id = var.sftp_access_AAD_objectId
   role_assignments = [
