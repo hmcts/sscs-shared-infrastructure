@@ -15,7 +15,7 @@ module "application_insights" {
   # so failures (failed requests, 5xx, exceptions) are not dropped by the module's default
   # non-prod ingestion sampling of 1%, which blocks diagnosis. Remaining environments keep the
   # module defaults (prod = 100%, other non-prod = 1%)
-  sampling_percentage = contains(["aat"], lower(var.env)) ? 25 : null
+  sampling_percentage = contains(["aat", "demo"], lower(var.env)) ? 25 : null
 }
 
 
